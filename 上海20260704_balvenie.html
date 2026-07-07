@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Shanghai Bird Observations &mdash; 4 July 2026</title>
+<script src="https://cdn.bootcdn.net/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+
+  body {
+    font-family: 'Cormorant Garamond', 'Georgia', 'Times New Roman', serif;
+    background: #f5f3df; color: #3d3226; line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* wrapper */
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 28px; }
+
+  /* header */
+  .header { text-align: center; padding: 80px 0 50px; }
+  .header .overline { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: #938977; margin-bottom: 10px; }
+  .header h1 { font-size: 52px; font-weight: 500; letter-spacing: -0.5px; color: #2b2218; line-height: 1.15; }
+  .header h1 i { font-style: italic; color: #c5874d; }
+  .header .date { font-size: 15px; color: #938977; margin-top: 12px; letter-spacing: 2px; text-transform: uppercase; }
+
+  /* stat quartet */
+  .quartet { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: #dad5c4; margin-bottom: 60px; }
+  .quartet > div { background: #f5f3df; padding: 36px 24px; text-align: center; }
+  .quartet .num { font-size: 56px; font-weight: 500; color: #2b2218; line-height: 1; }
+  .quartet .num.accent { color: #c5874d; }
+  .quartet .lbl { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #938977; margin-top: 6px; }
+
+  /* section titles */
+  .sec-title { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: #938977; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #dad5c4; }
+
+  /* table */
+  .table-wrap { background: #faf9f2; border: 1px solid #e8e3d5; }
+  table { width: 100%; border-collapse: collapse; }
+  thead th { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: #938977; font-weight: 600; padding: 18px 24px; text-align: left; border-bottom: 1px solid #dad5c4; }
+  tbody td { padding: 16px 24px; border-bottom: 1px solid #ede8d8; font-size: 16px; vertical-align: top; }
+  tbody tr:last-child td { border-bottom: none; }
+  .latin { font-size: 13px; font-style: italic; color: #a89880; display: block; margin-top: 2px; }
+
+  /* rarity tags */
+  .tag { display: inline-block; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; font-weight: 600; }
+  .tag-rare { background: #f2e6d8; color: #8b6914; }
+  .tag-uncommon { background: #e8e3d8; color: #6b5d4a; }
+  .tag-common { color: #b8ad9a; }
+  .tag-protected { background: #f5efe2; color: #c5874d; margin-left: 6px; }
+
+  /* kpi layout */
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 50px 0; }
+  .row2 .card { padding: 32px 0; }
+  .row2 .card .chart-ct { height: 280px; }
+
+  /* top rare */
+  .rare-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 1px; background: #dad5c4; margin: 24px 0 50px; }
+  .rare-grid > div { background: #f5f3df; padding: 28px 20px; text-align: center; }
+  .rare-grid .rank { font-size: 13px; color: #c5874d; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .rare-grid .bird { font-size: 18px; font-weight: 600; color: #2b2218; }
+  .rare-grid .bird-latin { font-size: 12px; font-style: italic; color: #a89880; margin-top: 2px; }
+  .rare-grid .stat { font-size: 11px; color: #938977; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 6px; }
+
+  .footer { text-align: center; padding: 60px 0 40px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #b8ad9a; border-top: 1px solid #dad5c4; margin-top: 40px; }
+
+  @media(max-width:768px){ .quartet{grid-template-columns:1fr 1fr} .row2{grid-template-columns:1fr} .rare-grid{grid-template-columns:1fr 1fr} .header h1{font-size:32px} }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="overline">Shanghai Bird Observations</div>
+  <h1>A Day in <i>Shanghai</i></h1>
+  <div class="date">4 July 2026 &middot; Saturday</div>
+</div>
+
+<div class="wrap">
+
+  <div class="quartet">
+    <div><div class="num">5</div><div class="lbl">Checklists</div></div>
+    <div><div class="num accent">34</div><div class="lbl">Species</div></div>
+    <div><div class="num">57</div><div class="lbl">Records</div></div>
+    <div><div class="num">7</div><div class="lbl">Orders</div></div>
+  </div>
+
+  <div class="sec-title">Rare &amp; Notable</div>
+  <div style="font-size:16px;color:#6b5d4a;margin-bottom:20px;text-align:center;font-style:italic">
+    Of the 34 species recorded today, 1 is classified as <span class="tag tag-rare">Rare</span> and 2 carry <span class="tag tag-protected">Class II</span> national protection.
+  </div>
+
+  <div class="rare-grid">
+    <div>
+      <div class="rank">1 &middot; Rare</div>
+      <div class="bird">Lesser Coucal</div>
+      <div class="bird-latin">Centropus bengalensis</div>
+      <div class="stat">Class II Protected</div>
+    </div>
+    <div>
+      <div class="rank">2 &middot; Uncommon</div>
+      <div class="bird">Black-winged Kite</div>
+      <div class="bird-latin">Elanus caeruleus</div>
+      <div class="stat">Class II Protected</div>
+    </div>
+    <div>
+      <div class="rank">3 &middot; Uncommon</div>
+      <div class="bird">Common Kestrel</div>
+      <div class="bird-latin">Falco tinnunculus</div>
+      <div class="stat">Class II Protected</div>
+    </div>
+    <div>
+      <div class="rank">4 &middot; Uncommon</div>
+      <div class="bird">Black Drongo</div>
+      <div class="bird-latin">Dicrurus macrocercus</div>
+      <div class="stat">&mdash;</div>
+    </div>
+    <div>
+      <div class="rank">5 &middot; Uncommon</div>
+      <div class="bird">Red-rumped Swallow</div>
+      <div class="bird-latin">Cecropis daurica</div>
+      <div class="stat">&mdash;</div>
+    </div>
+  </div>
+
+  <div class="row2">
+    <div class="card">
+      <div class="sec-title">Record Distribution</div>
+      <div class="chart-ct"><canvas id="pieChart"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="sec-title">Abundance Overview</div>
+      <div style="padding-top:10px">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid #dad5c4">
+          <span style="font-size:15px"><span class="tag tag-rare" style="font-size:11px">Rare</span> <span style="margin-left:6px;color:#3d3226">1 species</span></span>
+          <span style="font-size:13px;color:#938977">2.9%</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid #dad5c4">
+          <span style="font-size:15px"><span class="tag tag-uncommon" style="font-size:11px">Uncommon</span> <span style="margin-left:6px;color:#3d3226">19 species</span></span>
+          <span style="font-size:13px;color:#938977">55.9%</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0">
+          <span style="font-size:15px"><span class="tag tag-common" style="font-size:11px;border:1px solid #dad5c4;padding:4px 10px;border-radius:2px">Common</span> <span style="margin-left:6px;color:#3d3226">14 species</span></span>
+          <span style="font-size:13px;color:#938977">41.2%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-title">Complete Checklist</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>#</th><th>Species</th><th>Order</th><th>Family</th><th style="text-align:right">Records</th><th>Status</th></tr></thead>
+      <tbody id="bird-table"></tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    Data via China Bird Report &middot; birdreport.cn<br>
+    Checklist reference: Shanghai Bird Checklist 2025 &middot; Shanghai Wild Bird Society
+  </div>
+</div>
+
+<script>
+(function(){
+  var birds = [
+    {n:"Spotted Dove",cn:"珠颈斑鸠",l:"Spilopelia chinensis",o:"Columbiformes",f:"Columbidae",c:4,s:"common"},
+    {n:"Light-vented Bulbul",cn:"白头鹎",l:"Pycnonotus sinensis",o:"Passeriformes",f:"Pycnonotidae",c:4,s:"common"},
+    {n:"Oriental Magpie-Robin",cn:"鹊鸲",l:"Copsychus saularis",o:"Passeriformes",f:"Muscicapidae",c:4,s:"uncommon"},
+    {n:"Chinese Blackbird",cn:"乌鸫",l:"Turdus mandarinus",o:"Passeriformes",f:"Turdidae",c:3,s:"common"},
+    {n:"Little Grebe",cn:"小鸊鷉",l:"Tachybaptus ruficollis",o:"Podicipediformes",f:"Podicipedidae",c:2,s:"common"},
+    {n:"Common Moorhen",cn:"黑水鸡",l:"Gallinula chloropus",o:"Gruiformes",f:"Rallidae",c:2,s:"common"},
+    {n:"Little Egret",cn:"白鹭",l:"Egretta garzetta",o:"Pelecaniformes",f:"Ardeidae",c:2,s:"common"},
+    {n:"Common Kingfisher",cn:"普通翠鸟",l:"Alcedo atthis",o:"Coraciiformes",f:"Alcedinidae",c:2,s:"common"},
+    {n:"Long-tailed Shrike",cn:"棕背伯劳",l:"Lanius schach",o:"Passeriformes",f:"Laniidae",c:2,s:"common"},
+    {n:"Plain Prinia",cn:"纯色山鹪莺",l:"Prinia inornata",o:"Passeriformes",f:"Cisticolidae",c:2,s:"uncommon"},
+    {n:"Lesser Coucal",cn:"小鸦鹃",l:"Centropus bengalensis",o:"Cuculiformes",f:"Cuculidae",c:1,s:"rare",p:2},
+    {n:"Indian Cuckoo",cn:"四声杜鹃",l:"Cuculus micropterus",o:"Cuculiformes",f:"Cuculidae",c:1,s:"uncommon"},
+    {n:"Common Cuckoo",cn:"大杜鹃",l:"Cuculus canorus",o:"Cuculiformes",f:"Cuculidae",c:1,s:"uncommon"},
+    {n:"White-breasted Waterhen",cn:"白胸苦恶鸟",l:"Amaurornis phoenicurus",o:"Gruiformes",f:"Rallidae",c:1,s:"uncommon"},
+    {n:"Chinese Pond Heron",cn:"池鹭",l:"Ardeola bacchus",o:"Pelecaniformes",f:"Ardeidae",c:1,s:"uncommon"},
+    {n:"Grey Heron",cn:"苍鹭",l:"Ardea cinerea",o:"Pelecaniformes",f:"Ardeidae",c:1,s:"common"},
+    {n:"Great Egret",cn:"大白鹭",l:"Ardea alba",o:"Pelecaniformes",f:"Ardeidae",c:1,s:"uncommon"},
+    {n:"Black-winged Stilt",cn:"黑翅长脚鹬",l:"Himantopus himantopus",o:"Charadriiformes",f:"Recurvirostridae",c:1,s:"uncommon"},
+    {n:"Black-winged Kite",cn:"黑翅鸢",l:"Elanus caeruleus",o:"Accipitriformes",f:"Accipitridae",c:1,s:"uncommon",p:2},
+    {n:"Common Kestrel",cn:"红隼",l:"Falco tinnunculus",o:"Falconiformes",f:"Falconidae",c:1,s:"uncommon",p:2},
+    {n:"Black Drongo",cn:"黑卷尾",l:"Dicrurus macrocercus",o:"Passeriformes",f:"Dicruridae",c:1,s:"uncommon"},
+    {n:"Barn Swallow",cn:"家燕",l:"Hirundo rustica",o:"Passeriformes",f:"Hirundinidae",c:1,s:"common"},
+    {n:"Red-rumped Swallow",cn:"金腰燕",l:"Cecropis daurica",o:"Passeriformes",f:"Hirundinidae",c:1,s:"uncommon"},
+    {n:"Swinhoe's White-eye",cn:"暗绿绣眼鸟",l:"Zosterops simplex",o:"Passeriformes",f:"Zosteropidae",c:1,s:"uncommon"},
+    {n:"White-browed Laughingthrush",cn:"白颊噪鹛",l:"Pterorhinus sannio",o:"Passeriformes",f:"Leiothrichidae",c:1,s:"uncommon"},
+    {n:"Crested Myna",cn:"八哥",l:"Acridotheres cristatellus",o:"Passeriformes",f:"Sturnidae",c:1,s:"common"},
+    {n:"Red-billed Starling",cn:"丝光椋鸟",l:"Spodiopsar sericeus",o:"Passeriformes",f:"Sturnidae",c:1,s:"uncommon"},
+    {n:"White-cheeked Starling",cn:"灰椋鸟",l:"Spodiopsar cineraceus",o:"Passeriformes",f:"Sturnidae",c:1,s:"uncommon"},
+    {n:"Black-collared Starling",cn:"黑领椋鸟",l:"Gracupica nigricollis",o:"Passeriformes",f:"Sturnidae",c:1,s:"uncommon"},
+    {n:"Eurasian Tree Sparrow",cn:"麻雀",l:"Passer montanus",o:"Passeriformes",f:"Passeridae",c:1,s:"common"},
+    {n:"White Wagtail",cn:"白鹡鸰",l:"Motacilla alba",o:"Passeriformes",f:"Motacillidae",c:1,s:"common"},
+    {n:"Chinese Grosbeak",cn:"黑尾蜡嘴雀",l:"Eophona migratoria",o:"Passeriformes",f:"Fringillidae",c:1,s:"uncommon"},
+    {n:"Oriental Greenfinch",cn:"金翅雀",l:"Chloris sinica",o:"Passeriformes",f:"Fringillidae",c:1,s:"uncommon"},
+    {n:"Common Pheasant",cn:"环颈雉",l:"Phasianus colchicus",o:"Galliformes",f:"Phasianidae",c:1,s:"common"}
+  ];
+
+  birds.sort(function(a,b){ return b.c - a.c; });
+  var total = birds.reduce(function(s,b){ return s+b.c; },0);
+
+  // Table
+  document.getElementById('bird-table').innerHTML = birds.map(function(b,i){
+    var statusTag = '';
+    if(b.s==='rare') statusTag = '<span class="tag tag-rare">Rare</span>';
+    else if(b.s==='uncommon') statusTag = '<span class="tag tag-uncommon">Uncommon</span>';
+    else statusTag = '<span style="color:#b8ad9a;font-size:11px;letter-spacing:1.5px;text-transform:uppercase">Common</span>';
+    if(b.p) statusTag += ' <span class="tag tag-protected">Cl.&nbsp;II</span>';
+    return '<tr><td>'+(i+1)+'</td><td><b>'+b.n+'</b> <span style="font-size:13px;color:#938977">&middot; '+b.cn+'</span><span class="latin">'+b.l+'</span></td><td>'+b.o+'</td><td>'+b.f+'</td><td style="text-align:right;font-weight:600;color:#c5874d">'+b.c+'</td><td>'+statusTag+'</td></tr>';
+  }).join('');
+
+  // Pie chart
+  try {
+    if(typeof Chart !== 'undefined'){
+      var names = birds.map(function(b){ return b.n; });
+      var counts = birds.map(function(b){ return b.c; });
+      var topNames = names.slice(0,8).concat(['Others ('+(names.length-8)+')']);
+      var topCounts = counts.slice(0,8).concat([counts.slice(8).reduce(function(a,b){ return a+b; },0)]);
+      var cols = ['#c5874d','#b8a080','#938977','#7a6e5e','#d4c4a8','#e8dcc8','#a89880','#8b7a64','#dad5c4'];
+      var p = document.getElementById('pieChart');
+      if(p) new Chart(p,{type:'doughnut',data:{labels:topNames,datasets:[{data:topCounts,backgroundColor:cols,borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},cutout:'65%'}});
+    }
+  } catch(e){}
+})();
+</script>
+</body>
+</html>
