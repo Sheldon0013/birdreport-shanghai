@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>上海鸟类观察记录</title>
+<script src="https://cdn.bootcdn.net/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'Microsoft YaHei', sans-serif; background: #f5f5f5; color: #333; font-size: 14px; line-height: 1.5; }
+
+  /* ---- top bar ---- */
+  .topbar { background: #fff; border-bottom: 1px solid #ddd; height: 48px; }
+  .topbar-inner { max-width: 1140px; margin: 0 auto; padding: 0 16px; display: flex; align-items: center; height: 100%; gap: 24px; }
+  .logo { font-size: 18px; font-weight: 700; color: #4a7c59; letter-spacing: -0.3px; }
+  .logo span { color: #888; font-weight: 400; font-size: 14px; }
+  .topbar-nav { display: flex; gap: 2px; margin-left: auto; }
+  .topbar-nav a { color: #555; text-decoration: none; padding: 12px 14px; font-size: 13px; border-bottom: 3px solid transparent; }
+  .topbar-nav a:hover { color: #222; }
+  .topbar-nav a.on { color: #4a7c59; border-bottom-color: #4a7c59; font-weight: 600; }
+
+  /* ---- main ---- */
+  .main { max-width: 1140px; margin: 0 auto; padding: 24px 16px; display: grid; grid-template-columns: 1fr 340px; gap: 24px; }
+
+  /* ---- cards ---- */
+  .card { background: #fff; border: 1px solid #e2e2e2; border-radius: 6px; }
+  .card-hd { padding: 12px 18px; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: #222; }
+  .card-hd .num { background: #f0f0f0; color: #666; border-radius: 10px; padding: 1px 10px; font-size: 11px; font-weight: 500; }
+  .card-bd { padding: 0; }
+  .card-bd.pad { padding: 16px 18px; }
+
+  /* ---- kpi row ---- */
+  .kpi { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-bottom: 24px; }
+  .kpi-item { background: #fff; border: 1px solid #e2e2e2; border-radius: 6px; padding: 16px 18px; text-align: center; }
+  .kpi-item .val { font-size: 32px; font-weight: 700; color: #222; line-height: 1.1; }
+  .kpi-item .lbl { font-size: 12px; color: #888; margin-top: 2px; }
+
+  /* ---- tables ---- */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead th { background: #f7f7f7; color: #666; font-weight: 600; font-size: 11px; letter-spacing: 0.3px; padding: 8px 14px; text-align: left; border-bottom: 1px solid #e2e2e2; }
+  tbody td { padding: 8px 14px; border-bottom: 1px solid #f0f0f0; }
+  tbody tr:nth-child(even) { background: #fafafa; }
+  tbody tr:hover { background: #eef7f0; }
+  .latin { color: #999; font-size: 11px; font-style: italic; }
+  .cnt { font-weight: 600; color: #4a7c59; }
+
+  /* ---- sidebar ---- */
+  .side { display: flex; flex-direction: column; gap: 16px; }
+  .side .card-hd { background: #f7f7f7; }
+
+  .link { color: #4a7c59; text-decoration: none; font-weight: 500; }
+  .link:hover { text-decoration: underline; }
+
+  /* ---- chart area ---- */
+  .charts-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  @media(max-width:768px){ .main,.charts-row{grid-template-columns:1fr} .kpi{grid-template-columns:1fr 1fr} }
+
+  .footer { border-top: 1px solid #e2e2e2; padding: 20px 16px; text-align: center; color: #999; font-size: 11px; margin-top: 12px; }
+  .footer strong { color: #4a7c59; }
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="topbar-inner">
+  <div class="logo">eBird <span>Shanghai</span></div>
+  <div class="topbar-nav">
+    <a href="#" class="on">总览</a><a href="#">鸟种</a><a href="#">图表</a><a href="#">趋势</a><a href="#">帮助</a>
+  </div>
+</div></div>
+
+<div class="main">
+
+  <!-- LEFT COLUMN -->
+  <div style="display:flex;flex-direction:column;gap:24px">
+
+    <div class="kpi">
+      <div class="kpi-item"><div class="val">5</div><div class="lbl">观察报告</div></div>
+      <div class="kpi-item"><div class="val">34</div><div class="lbl">鸟种</div></div>
+      <div class="kpi-item"><div class="val">57</div><div class="lbl">记录条数</div></div>
+      <div class="kpi-item"><div class="val">7</div><div class="lbl">目</div></div>
+    </div>
+
+    <div class="charts-row">
+      <div class="card"><div class="card-hd">记录次数分布</div><div class="card-bd pad"><canvas id="pieChart" height="240"></canvas></div></div>
+      <div class="card">
+        <div class="card-hd">稀有鸟种 Top 10<span class="num">&bull; 2025 上海名录</span></div>
+        <div class="card-bd" style="padding:0"><table id="rare-table">
+          <thead><tr><th>#</th><th>鸟种</th><th>稀有度</th><th>保护</th><th>次数</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td><b>小鸦鹃</b><br><span class="latin">Centropus bengalensis</span></td><td><span style="background:#ffebee;color:#c62828;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:600">罕见 r</span></td><td><span style="background:#fff3e0;color:#e65100;padding:2px 6px;border-radius:3px;font-size:11px">二级</span></td><td class="cnt">1</td></tr>
+            <tr><td>2</td><td><b>黑翅鸢</b><br><span class="latin">Elanus caeruleus</span></td><td><span style="background:#fce4ec;color:#ad1457;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:600">不常见 uc</span></td><td><span style="background:#fff3e0;color:#e65100;padding:2px 6px;border-radius:3px;font-size:11px">二级</span></td><td class="cnt">1</td></tr>
+            <tr><td>3</td><td><b>红隼</b><br><span class="latin">Falco tinnunculus</span></td><td><span style="background:#fce4ec;color:#ad1457;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:600">不常见 uc</span></td><td><span style="background:#fff3e0;color:#e65100;padding:2px 6px;border-radius:3px;font-size:11px">二级</span></td><td class="cnt">1</td></tr>
+            <tr><td>4</td><td><b>黑卷尾</b><br><span class="latin">Dicrurus macrocercus</span></td><td><span style="background:#fce4ec;color:#ad1457;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:600">不常见 uc</span></td><td style="color:#999;font-size:11px">--</td><td class="cnt">1</td></tr>
+            <tr><td>5</td><td><b>金腰燕</b><br><span class="latin">Cecropis daurica</span></td><td><span style="background:#fce4ec;color:#ad1457;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:600">不常见 uc</span></td><td style="color:#999;font-size:11px">--</td><td class="cnt">1</td></tr>
+            <tr><td>6</td><td><b>大白鹭</b><br><span class="latin">Ardea alba</span></td><td><span style="background:#fce4ec;color:#ad1457;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:600">不常见 uc</span></td><td style="color:#999;font-size:11px">--</td><td class="cnt">1</td></tr>
+            <tr><td>7</td><td><b>黑领椋鸟</b><br><span class="latin">Gracupica nigricollis</span></td><td><span style="background:#fce4ec;color:#ad1457;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:600">不常见 uc</span></td><td style="color:#999;font-size:11px">--</td><td class="cnt">1</td></tr>
+            <tr><td>8</td><td><b>黑尾蜡嘴雀</b><br><span class="latin">Eophona migratoria</span></td><td><span style="background:#fce4ec;color:#ad1457;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:600">不常见 uc</span></td><td style="color:#999;font-size:11px">--</td><td class="cnt">1</td></tr>
+            <tr><td>9</td><td><b>暗绿绣眼鸟</b><br><span class="latin">Zosterops simplex</span></td><td><span style="background:#fce4ec;color:#ad1457;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:600">不常见 uc</span></td><td style="color:#999;font-size:11px">--</td><td class="cnt">1</td></tr>
+            <tr><td>10</td><td><b>黑翅长脚鹬</b><br><span class="latin">Himantopus himantopus</span></td><td><span style="background:#fce4ec;color:#ad1457;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:600">不常见 uc</span></td><td style="color:#999;font-size:11px">--</td><td class="cnt">1</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd">鸟类名录<span class="num">34 species</span></div>
+      <div style="max-height:500px;overflow-y:auto"><table>
+        <thead><tr><th>#</th><th>鸟种</th><th>目</th><th>科</th><th style="text-align:right">次数</th></tr></thead>
+        <tbody id="bird-table"></tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <!-- RIGHT SIDEBAR -->
+  <div class="side">
+
+    <div class="card">
+      <div class="card-hd">位置信息</div>
+      <div class="card-bd pad">
+        <div style="font-weight:600;font-size:15px">上海市</div>
+        <div style="color:#888;font-size:13px">2026年7月4日 &middot; 周六</div>
+        <div style="margin-top:8px;color:#555;font-size:13px;line-height:1.8">
+          22&deg;C &bull; 阴 &bull; 东南风3级<br>
+          日出 04:51 &bull; 日落 18:59
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd">常见鸟种 Top 5</div>
+      <div class="card-bd pad">
+        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f0f0f0">
+          <span style="color:#4a7c59;font-weight:600">1</span><span>珠颈斑鸠</span><span class="cnt">4</span></div>
+        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f0f0f0">
+          <span style="color:#4a7c59;font-weight:600">2</span><span>白头鹎</span><span class="cnt">4</span></div>
+        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f0f0f0">
+          <span style="color:#4a7c59;font-weight:600">3</span><span>鹊鸲</span><span class="cnt">4</span></div>
+        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f0f0f0">
+          <span style="color:#888;font-weight:600">4</span><span>乌鸫</span><span class="cnt">3</span></div>
+        <div style="display:flex;justify-content:space-between;padding:6px 0">
+          <span style="color:#888;font-weight:600">5</span><span>小鸊鷉</span><span class="cnt">2</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd">目级分类</div>
+      <div class="card-bd pad">
+        <div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px"><span>雀形目 Passeriformes</span><span style="font-weight:600">18</span></div>
+        <div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px"><span>鹈形目 Pelecaniformes</span><span>4</span></div>
+        <div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px"><span>鹃形目 Cuculiformes</span><span>3</span></div>
+        <div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px"><span>鹤形目 Gruiformes</span><span>2</span></div>
+        <div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px"><span>鸽形目 Columbiformes</span><span>1</span></div>
+        <div style="display:flex;justify-content:space-between;padding:5px 0;font-size:13px"><span>其他 2 目</span><span>6</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-hd">数据来源</div>
+      <div class="card-bd pad" style="font-size:13px;color:#555;line-height:1.7">
+        中国观鸟记录中心<br>
+        <a href="https://www.birdreport.cn" class="link" target="_blank">birdreport.cn</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <strong>eBird Shanghai</strong> &middot; Design inspired by Cornell Lab of Ornithology &middot; Generated 2026-07-04
+</div>
+
+<script>
+(function(){
+  var B = [
+    {n:"珠颈斑鸠",l:"Spilopelia chinensis",o:"鸽形目",f:"鸠鸽科",c:4},
+    {n:"白头鹎",l:"Pycnonotus sinensis",o:"雀形目",f:"鹎科",c:4},
+    {n:"鹊鸲",l:"Copsychus saularis",o:"雀形目",f:"鹟科",c:4},
+    {n:"乌鸫",l:"Turdus mandarinus",o:"雀形目",f:"鸫科",c:3},
+    {n:"小鸊鷉",l:"Tachybaptus ruficollis",o:"鸊鷉目",f:"鸊鷉科",c:2},
+    {n:"黑水鸡",l:"Gallinula chloropus",o:"鹤形目",f:"秧鸡科",c:2},
+    {n:"白鹭",l:"Egretta garzetta",o:"鹈形目",f:"鹭科",c:2},
+    {n:"普通翠鸟",l:"Alcedo atthis",o:"佛法僧目",f:"翠鸟科",c:2},
+    {n:"棕背伯劳",l:"Lanius schach",o:"雀形目",f:"伯劳科",c:2},
+    {n:"纯色山鹪莺",l:"Prinia inornata",o:"雀形目",f:"扇尾莺科",c:2},
+    {n:"小鸦鹃",l:"Centropus bengalensis",o:"鹃形目",f:"杜鹃科",c:1},
+    {n:"四声杜鹃",l:"Cuculus micropterus",o:"鹃形目",f:"杜鹃科",c:1},
+    {n:"大杜鹃",l:"Cuculus canorus",o:"鹃形目",f:"杜鹃科",c:1},
+    {n:"白胸苦恶鸟",l:"Amaurornis phoenicurus",o:"鹤形目",f:"秧鸡科",c:1},
+    {n:"池鹭",l:"Ardeola bacchus",o:"鹈形目",f:"鹭科",c:1},
+    {n:"苍鹭",l:"Ardea cinerea",o:"鹈形目",f:"鹭科",c:1},
+    {n:"大白鹭",l:"Ardea alba",o:"鹈形目",f:"鹭科",c:1},
+    {n:"黑翅长脚鹬",l:"Himantopus himantopus",o:"鸻形目",f:"反嘴鹬科",c:1},
+    {n:"黑翅鸢",l:"Elanus caeruleus",o:"鹰形目",f:"鹰科",c:1},
+    {n:"红隼",l:"Falco tinnunculus",o:"隼形目",f:"隼科",c:1},
+    {n:"黑卷尾",l:"Dicrurus macrocercus",o:"雀形目",f:"卷尾科",c:1},
+    {n:"家燕",l:"Hirundo rustica",o:"雀形目",f:"燕科",c:1},
+    {n:"金腰燕",l:"Cecropis daurica",o:"雀形目",f:"燕科",c:1},
+    {n:"暗绿绣眼鸟",l:"Zosterops simplex",o:"雀形目",f:"绣眼鸟科",c:1},
+    {n:"白颊噪鹛",l:"Pterorhinus sannio",o:"雀形目",f:"噪鹛科",c:1},
+    {n:"八哥",l:"Acridotheres cristatellus",o:"雀形目",f:"椋鸟科",c:1},
+    {n:"丝光椋鸟",l:"Spodiopsar sericeus",o:"雀形目",f:"椋鸟科",c:1},
+    {n:"灰椋鸟",l:"Spodiopsar cineraceus",o:"雀形目",f:"椋鸟科",c:1},
+    {n:"黑领椋鸟",l:"Gracupica nigricollis",o:"雀形目",f:"椋鸟科",c:1},
+    {n:"麻雀",l:"Passer montanus",o:"雀形目",f:"雀科",c:1},
+    {n:"白鹡鸰",l:"Motacilla alba",o:"雀形目",f:"鹡鸰科",c:1},
+    {n:"黑尾蜡嘴雀",l:"Eophona migratoria",o:"雀形目",f:"燕雀科",c:1},
+    {n:"金翅雀",l:"Chloris sinica",o:"雀形目",f:"燕雀科",c:1},
+    {n:"环颈雉",l:"Phasianus colchicus",o:"鸡形目",f:"雉科",c:1}
+  ];
+  var total = B.reduce(function(s,b){return s+b.c},0);
+  var names = B.map(function(b){return b.n});
+  var counts = B.map(function(b){return b.c});
+  var cols = ['#4a7c59','#5a8a65','#6b9871','#7da67d','#8fb48a','#a1c297','#b4d0a5','#c7deb3','#2d6a4f','#388e3c','#43a047','#558b2f','#689f38','#7cb342','#33691e','#9e9d24','#afb42b','#c0ca33','#d4e157','#827717','#8bc34a','#aed581','#e6ee9c','#f0f4c3','#66bb6a','#81c784','#a5d6a7','#c8e6c9','#4caf50','#8bc34a','#cddc39','#33691e','#689f38','#4a7c59'];
+
+  document.getElementById('bird-table').innerHTML = B.map(function(b,i){
+    return '<tr><td>'+(i+1)+'</td><td><b>'+b.n+'</b><br><span class="latin">'+b.l+'</span></td><td>'+b.o+'</td><td>'+b.f+'</td><td style="text-align:right" class="cnt">'+b.c+'</td></tr>';
+  }).join('');
+
+  try {
+    if(typeof Chart !== 'undefined'){
+      var p = document.getElementById('pieChart');
+      if(p) new Chart(p,{type:'doughnut',data:{labels:names.slice(0,8).concat(['其他26种']),datasets:[{data:counts.slice(0,8).concat([counts.slice(8).reduce(function(a,b){return a+b},0)]),backgroundColor:['#4a7c59','#388e3c','#66bb6a','#81c784','#a5d6a7','#c8e6c9','#2e7d32','#558b2f','#e0e0e0'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{size:10},padding:4,boxWidth:8}}}}});
+    }
+  } catch(e){}
+})();
+</script>
+</body>
+</html>
