@@ -56,7 +56,7 @@ for idx, line in enumerate(lines):
         if len(parts) >= 2 and prev_cn and prev_cn in lookup and not lookup[prev_cn].get('residency'):
             ss_res = parts[2] if len(parts) >= 3 else (parts[1] if len(parts) >= 2 else '')
             # Strip parentheses/notes from residency code
-            valid_rc_codes = {'R','S','W','V','Mp','Mv','↓','WS','SW','W/S','S/W','MpS','MpW','WMp','W*','Mp*','Mv*','Mp/S'}
+            valid_rc_codes = {'R','S','W','V','Mp','Mv','↓','WS','SW','W/S','S/W','MpS','MpW','WMp','W*','Mp*','Mv*','Mp/S','Mp/W','W/Mp','R?','—'}
             if ss_res in valid_rc_codes:
                 lookup[prev_cn]['residency'] = ss_res
         continue
@@ -71,7 +71,7 @@ for idx, line in enumerate(lines):
         if p in ('c', 'uc', 'r') and i > 0:
             rc = parts[i-1]
             # Validate residency code: skip Latin species epithets
-            valid_rc_codes = {'R','S','W','V','Mp','Mv','↓','WS','SW','W/S','S/W','MpS','MpW','WMp','W*','Mp*','Mv*','Mp/S'}
+            valid_rc_codes = {'R','S','W','V','Mp','Mv','↓','WS','SW','W/S','S/W','MpS','MpW','WMp','W*','Mp*','Mv*','Mp/S','Mp/W','W/Mp','R?','—'}
             if rc in valid_rc_codes or (len(rc) == 1 and rc.isupper()):
                 pass  # valid residency code
             else:
