@@ -220,6 +220,29 @@ if content.count('<tr><td') < 5: errors.append('too few table rows')
 if content.count('class="rare-card"') < 3: errors.append('too few rare cards')
 if 'badge badge' not in content: errors.append('status badges missing')
 
+# New validations
+# 1. Date check: HTML must contain the data date, not system date
+expected_date = yesterday.replace('-0','年').replace('-','月',1).replace('-','日')+'日'
+if expected_date not in content:
+    errors.append(f'date mismatch: expected {expected_date}')
+
+# 2. Season check: story must match season narrative
+season_keywords = {'春':'候鸟开始北迁','夏':'白鹭、夜鹭在湿地间穿行','秋':'候鸟南迁接近尾声','冬':'崇明东滩越冬'}
+expected_story = season_keywords.get(season, '')
+if expected_story and expected_story not in content:
+    errors.append(f'story does not match {season} season')
+
+# 3. Checklist order check: first species should have lower order_idx than last (non-gray)
+matched_birds = [s for s in species if s['order_idx'] < 99998]
+if len(matched_birds) >= 2 and matched_birds[0]['order_idx'] >= matched_birds[-1]['order_idx']:
+    errors.append('species not sorted by checklist order')
+
+# 4. Residency check: no empty residency cells for matched species
+empty_res = sum(1 for s in species if not s.get('residency_code','') and s['order_idx'] < 99998)
+if empty_res > 0:
+    names = [s['n'] for s in species if not s.get('residency_code','') and s['order_idx'] < 99998]
+    errors.append(f'{empty_res} species missing residency: {", ".join(names[:5])}')
+
 if errors:
     print(f'VALIDATION FAILED: {errors}')
     sys.exit(1)
