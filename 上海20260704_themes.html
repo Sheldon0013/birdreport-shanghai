@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Shanghai Birds &middot; 5 Nature Themes</title>
+<script src="https://cdn.bootcdn.net/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,'Microsoft YaHei',sans-serif;background:#e8e8e0}
+  .theme{padding:40px 20px}
+  .theme:nth-child(odd){background:#fafaf8}
+  .theme:nth-child(even){background:#f0f0ea}
+  .theme-label{text-align:center;margin-bottom:20px;font-size:13px;letter-spacing:4px;text-transform:uppercase}
+  .cards{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .card{border-radius:10px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+  .card h3{font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;opacity:0.8}
+  .kpi-row{display:flex;gap:12px;margin-bottom:16px}
+  .kpi{flex:1;border-radius:6px;padding:14px 12px;text-align:center}
+  .kpi .num{font-size:28px;font-weight:700}
+  .kpi .lbl{font-size:10px;text-transform:uppercase;letter-spacing:2px;margin-top:2px;opacity:0.7}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{text-align:left;padding:8px 10px;font-size:10px;letter-spacing:2px;text-transform:uppercase;opacity:0.6;font-weight:600}
+  td{padding:7px 10px}
+  tr:not(:last-child) td{border-bottom-width:1px}
+  .chart{height:180px;margin-top:12px}
+  @media(max-width:768px){.cards{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div style="text-align:center;padding:30px 20px 10px">
+  <h1 style="font-size:20px;letter-spacing:1px;color:#444">Shanghai Birds &middot; 4 July 2026</h1>
+  <p style="font-size:12px;color:#999;margin-top:4px">5 Nature-Themed Green Designs</p>
+</div>
+
+<!-- THEME 1: FOREST -->
+<div class="theme" style="background:#f1f8f0">
+<div class="theme-label" style="color:#2d5a27">&#9670; Forest &mdash; Deep Woodland &#9670;</div>
+<div class="cards" id="theme-forest"></div></div>
+
+<!-- THEME 2: SPRING -->
+<div class="theme" style="background:#f4f9f0">
+<div class="theme-label" style="color:#7cb342">&#9670; Spring &mdash; Fresh Meadow &#9670;</div>
+<div class="cards" id="theme-spring"></div></div>
+
+<!-- THEME 3: SAGE -->
+<div class="theme" style="background:#f4f6f3">
+<div class="theme-label" style="color:#8a9a7b">&#9670; Sage &mdash; Herbal Garden &#9670;</div>
+<div class="cards" id="theme-sage"></div></div>
+
+<!-- THEME 4: TROPICAL -->
+<div class="theme" style="background:#eafff7">
+<div class="theme-label" style="color:#00a86b">&#9670; Tropical &mdash; Jungle Canopy &#9670;</div>
+<div class="cards" id="theme-tropical"></div></div>
+
+<!-- THEME 5: MOSS -->
+<div class="theme" style="background:#f6f8f1">
+<div class="theme-label" style="color:#6b7a3a">&#9670; Moss &mdash; Earthy Wetland &#9670;</div>
+<div class="cards" id="theme-moss"></div></div>
+
+<script>
+(function(){
+var B=[{n:"Spotted Dove",cn:"珠颈斑鸠",c:4},{n:"Light-vented Bulbul",cn:"白头鹎",c:4},{n:"Oriental Magpie-Robin",cn:"鹊鸲",c:4},{n:"Chinese Blackbird",cn:"乌鸫",c:3},{n:"Little Grebe",cn:"小鸊鷉",c:2}];
+var T=B.reduce(function(s,b){return s+b.c},0);
+
+var themes=[
+  {id:'forest',name:'Forest',bg:'#f1f8f0',sc:'#2d5a27',tc:'#e4f2e2',lc:'#50a045',dc:'#152a12',mc:'#2c5826',ac:'#7ac170'},
+  {id:'spring',name:'Spring',bg:'#f4f9f0',sc:'#7cb342',tc:'#eaf4e1',lc:'#74a73d',dc:'#1e2c10',mc:'#405d22',ac:'#9ac869'},
+  {id:'sage',name:'Sage',bg:'#f4f6f3',sc:'#8a9a7b',tc:'#eaede7',lc:'#728263',dc:'#1e221a',mc:'#3f4837',ac:'#98a68b'},
+  {id:'tropical',name:'Tropical',bg:'#eafff7',sc:'#00a86b',tc:'#d6fef0',lc:'#00e592',dc:'#003d26',mc:'#007f51',ac:'#32ffb4'},
+  {id:'moss',name:'Moss',bg:'#f6f8f1',sc:'#6b7a3a',tc:'#eef1e3',lc:'#889b49',dc:'#242913',mc:'#4b5629',ac:'#acbd74'},
+];
+
+themes.forEach(function(t){
+  var h='',swatches='';
+  [t.dc,t.mc,t.sc,t.lc,t.ac,t.tc,t.bg].forEach(function(c,i){
+    swatches+='<span style="display:inline-block;width:20px;height:20px;border-radius:3px;background:'+c+';margin-right:4px" title="'+c+'"></span>';
+  });
+
+  h+= '<div class="card" style="background:'+t.bg+';border:1px solid '+t.tc+'">';
+  h+= '<h3 style="color:'+t.dc+'">'+t.name+' &middot; Stats</h3>';
+  h+= '<div class="kpi-row">';
+  h+= '<div class="kpi" style="background:'+t.tc+'"><div class="num" style="color:'+t.dc+'">5</div><div class="lbl" style="color:'+t.sc+'">Reports</div></div>';
+  h+= '<div class="kpi" style="background:'+t.tc+'"><div class="num" style="color:'+t.sc+'">34</div><div class="lbl" style="color:'+t.sc+'">Species</div></div>';
+  h+= '<div class="kpi" style="background:'+t.tc+'"><div class="num" style="color:'+t.dc+'">57</div><div class="lbl" style="color:'+t.sc+'">Records</div></div>';
+  h+= '</div>';
+  h+= '<table><thead><tr style="color:'+t.sc+'"><th>#</th><th>Species</th><th style="text-align:right">Count</th></tr></thead><tbody>';
+  B.forEach(function(b,i){
+    h+= '<tr style="border-color:'+t.tc+';color:'+t.dc+'"><td style="opacity:0.5">'+(i+1)+'</td><td><b>'+b.n+'</b> <span style="opacity:0.5">'+b.cn+'</span></td><td style="text-align:right;color:'+t.sc+';font-weight:700">'+b.c+'</td></tr>';
+  });
+  h+= '</tbody></table>';
+  h+= '<div style="margin-top:8px;font-size:10px;text-align:center;color:'+t.sc+'">'+swatches+'</div>';
+  h+= '</div>';
+
+  h+= '<div class="card" style="background:'+t.bg+';border:1px solid '+t.tc+'">';
+  h+= '<h3 style="color:'+t.dc+'">'+t.name+' &middot; Distribution</h3>';
+  h+= '<div class="chart"><canvas id="chart-'+t.id+'"></canvas></div>';
+  h+= '<div style="margin-top:8px;text-align:center;color:'+t.sc+';font-size:11px;letter-spacing:2px">'+t.name.toUpperCase()+' PALETTE</div>';
+  h+= '</div>';
+
+  document.getElementById('theme-'+t.id).innerHTML=h;
+
+  try{if(typeof Chart!=='undefined'){
+    var n=B.map(function(b){return b.n}),c=B.map(function(b){return b.c});
+    new Chart(document.getElementById('chart-'+t.id),{type:'doughnut',data:{labels:n,datasets:[{data:c,backgroundColor:[t.sc,t.lc,t.ac,t.mc,t.dc],borderWidth:1,borderColor:t.bg}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},cutout:'70%'}});
+  }}catch(e){}
+});
+
+})();
+</script>
+</body>
+</html>
