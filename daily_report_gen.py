@@ -222,7 +222,7 @@ if 'badge badge' not in content: errors.append('status badges missing')
 
 # New validations
 # 1. Date check: HTML must contain the data date, not system date
-expected_date = yesterday.replace('-0','年').replace('-','月',1).replace('-','日')+'日'
+expected_date = datetime.strptime(yesterday, '%Y-%m-%d').strftime('%Y年%-m月%-d日')
 if expected_date not in content:
     errors.append(f'date mismatch: expected {expected_date}')
 
