@@ -1,0 +1,8 @@
+node_modules/
+.cache/
+*.png
+*.jpg
+*.eml
+.DS_Store
+html2png
+*.json
