@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>上海市 2026-07-01 鸟类记录统计</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, "Microsoft YaHei", sans-serif; background: #f0f2f5; padding: 20px; color: #333; }
+  .container { max-width: 1300px; margin: 0 auto; }
+  h1 { text-align: center; color: #1a1a2e; margin-bottom: 4px; font-size: 24px; }
+  .subtitle { text-align: center; color: #666; font-size: 13px; margin-bottom: 20px; }
+  .summary-cards { display: flex; gap: 12px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap; }
+  .card { background: white; border-radius: 10px; padding: 16px 24px; text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.06); min-width: 110px; }
+  .card .num { font-size: 28px; font-weight: 700; color: #2c3e50; }
+  .card .label { font-size: 12px; color: #888; margin-top: 2px; }
+  .charts { display: flex; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center; }
+  .chart-box { background: white; border-radius: 10px; padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .section { background: white; border-radius: 10px; padding: 16px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .section h2 { font-size: 16px; color: #2c3e50; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #3498DB; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: #2c3e50; color: white; padding: 8px 10px; text-align: left; position: sticky; top: 0; white-space: nowrap; }
+  td { padding: 6px 10px; border-bottom: 1px solid #eee; }
+  tr:nth-child(even) { background: #fafbfc; }
+  tr:hover { background: #e8f4fd; }
+  .report-table td:nth-child(4) { font-weight: 600; color: #2c3e50; }
+  .bar-cell { display: flex; align-items: center; gap: 6px; }
+  .bar-fill { height: 14px; border-radius: 3px; min-width: 2px; opacity: 0.85; }
+  .pct { color: #999; font-size: 11px; }
+  .tag { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 11px; }
+  .tag-high { background: #ffe0e0; color: #c0392b; }
+  .tag-mid { background: #fff3cd; color: #856404; }
+  .tag-low { background: #d4edda; color: #155724; }
+  @media print { body { background: white; } .section, .chart-box { box-shadow: none; border: 1px solid #ddd; } }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>🪶 上海市 2026年7月1日 鸟类记录统计</h1>
+<div class="subtitle">数据来源: 中国观鸟记录中心 (birdreport.cn) · 查询时间: 2026-07-04</div>
+
+<div class="summary-cards">
+  <div class="card"><div class="num">28</div><div class="label">报告数</div></div>
+  <div class="card"><div class="num">60</div><div class="label">鸟种数</div></div>
+  <div class="card"><div class="num">292</div><div class="label">总记录条数</div></div>
+  <div class="card"><div class="num">0211615141313121212111111111099876553332211</div><div class="label">累计鸟种次</div></div>
+</div>
+
+<div class="charts">
+  <div class="chart-box" style="width:580px"><canvas id="pieChart" height="400"></canvas></div>
+  <div class="chart-box" style="width:680px"><canvas id="barChart" height="400"></canvas></div>
+</div>
+
+<div class="section">
+  <h2>📋 28篇报告列表（按鸟种数排序）</h2>
+  <table class="report-table">
+    <thead><tr><th>#</th><th>报告编号</th><th>观测地点</th><th>鸟种数</th><th>记录用户</th><th>观测时间</th></tr></thead>
+    <tbody>
+      <tr>
+          <td>1</td>
+          <td>2026070100720</td>
+          <td>吴淞炮台湾湿地森林公园</td>
+          <td>21 <span class="tag tag-high">高</span></td>
+          <td>秦薇</td>
+          <td>2026-07-01 15:03</td>
+        </tr><tr>
+          <td>2</td>
+          <td>2026070100669</td>
+          <td>世纪公园</td>
+          <td>16 <span class="tag tag-high">高</span></td>
+          <td>LemonLemonMan</td>
+          <td>2026-07-01 17:00</td>
+        </tr><tr>
+          <td>3</td>
+          <td>2026070100826</td>
+          <td>新江湾城公园</td>
+          <td>15 <span class="tag tag-high">高</span></td>
+          <td>zrg2013</td>
+          <td>2026-07-01 18:30</td>
+        </tr><tr>
+          <td>4</td>
+          <td>2026070100762</td>
+          <td>华泾公园(上海市徐汇区华泾路190号)</td>
+          <td>14 <span class="tag tag-mid">中</span></td>
+          <td>Shawnli</td>
+          <td>2026-07-01 18:00</td>
+        </tr><tr>
+          <td>5</td>
+          <td>2026070100588</td>
+          <td>大宁公园</td>
+          <td>13 <span class="tag tag-mid">中</span></td>
+          <td>shihuijuanfu</td>
+          <td>2026-07-01 13:30</td>
+        </tr><tr>
+          <td>6</td>
+          <td>2026070100415</td>
+          <td>世纪公园</td>
+          <td>13 <span class="tag tag-mid">中</span></td>
+          <td>SailorXXL</td>
+          <td>2026-07-01 09:00</td>
+        </tr><tr>
+          <td>7</td>
+          <td>2026070201028</td>
+          <td>上海市大黄村生态园</td>
+          <td>12 <span class="tag tag-mid">中</span></td>
+          <td>观鸟布布</td>
+          <td>2026-07-01 16:30</td>
+        </tr><tr>
+          <td>8</td>
+          <td>2026070100258</td>
+          <td>世纪公园</td>
+          <td>12 <span class="tag tag-mid">中</span></td>
+          <td>snipershark</td>
+          <td>2026-07-01 07:00</td>
+        </tr><tr>
+          <td>9</td>
+          <td>2026070100258</td>
+          <td>世纪公园</td>
+          <td>12 <span class="tag tag-mid">中</span></td>
+          <td>snipershark</td>
+          <td>2026-07-01 07:00</td>
+        </tr><tr>
+          <td>10</td>
+          <td>2026070100345</td>
+          <td>华东理工大学</td>
+          <td>11 <span class="tag tag-mid">中</span></td>
+          <td>黄土如金</td>
+          <td>2026-07-01 11:00</td>
+        </tr><tr>
+          <td>11</td>
+          <td>2026070100430</td>
+          <td>虹井路与虹桥路交叉口-蔚来中心</td>
+          <td>11 <span class="tag tag-mid">中</span></td>
+          <td>刘永龙</td>
+          <td>2026-07-01 08:00</td>
+        </tr><tr>
+          <td>12</td>
+          <td>2026070100774</td>
+          <td>徐汇万科中心</td>
+          <td>11 <span class="tag tag-mid">中</span></td>
+          <td>穿越时空的机器猫</td>
+          <td>2026-07-01 07:55</td>
+        </tr><tr>
+          <td>13</td>
+          <td>2026070100077</td>
+          <td>长桥淀浦河步道</td>
+          <td>11 <span class="tag tag-mid">中</span></td>
+          <td>jim72zhou</td>
+          <td>2026-07-01 07:28</td>
+        </tr><tr>
+          <td>14</td>
+          <td>2026070100777</td>
+          <td>上海上象星作数娱(集团)股份有限公司总部</td>
+          <td>10 <span class="tag tag-mid">中</span></td>
+          <td>Mellon</td>
+          <td>2026-07-01 18:00</td>
+        </tr><tr>
+          <td>15</td>
+          <td>2026070100365</td>
+          <td>闸北公园</td>
+          <td>9 <span class="tag tag-mid">中</span></td>
+          <td>羊舌景</td>
+          <td>2026-07-01 11:45</td>
+        </tr><tr>
+          <td>16</td>
+          <td>2026070100303</td>
+          <td>海航路与海坤路交叉口</td>
+          <td>9 <span class="tag tag-mid">中</span></td>
+          <td>夜鸟广进</td>
+          <td>2026-07-01 11:00</td>
+        </tr><tr>
+          <td>17</td>
+          <td>2026070100060</td>
+          <td>闸北公园</td>
+          <td>8 <span class="tag tag-mid">中</span></td>
+          <td>羊舌景</td>
+          <td>2026-07-01 06:55</td>
+        </tr><tr>
+          <td>18</td>
+          <td>2026070100358</td>
+          <td>品尊国际公寓2期</td>
+          <td>7 <span class="tag tag-low">低</span></td>
+          <td>Sisley</td>
+          <td>2026-07-01 12:00</td>
+        </tr><tr>
+          <td>19</td>
+          <td>2026070100783</td>
+          <td>静安区闸北公园(洛川东路北)</td>
+          <td>6 <span class="tag tag-low">低</span></td>
+          <td>zhy7997</td>
+          <td>2026-07-01 18:35</td>
+        </tr><tr>
+          <td>20</td>
+          <td>2026070100619</td>
+          <td>金龙新村</td>
+          <td>5 <span class="tag tag-low">低</span></td>
+          <td>zrg2013</td>
+          <td>2026-07-01 16:10</td>
+        </tr><tr>
+          <td>21</td>
+          <td>2026070100540</td>
+          <td>市教师教育学院</td>
+          <td>5 <span class="tag tag-low">低</span></td>
+          <td>zrg2013</td>
+          <td>2026-07-01 07:20</td>
+        </tr><tr>
+          <td>22</td>
+          <td>2026070300670</td>
+          <td>后滩公园</td>
+          <td>3 <span class="tag tag-low">低</span></td>
+          <td>AoyamaNagisa</td>
+          <td>2026-07-01 17:30</td>
+        </tr><tr>
+          <td>23</td>
+          <td>2026070100263</td>
+          <td>北蔡休闲绿地</td>
+          <td>3 <span class="tag tag-low">低</span></td>
+          <td>snipershark</td>
+          <td>2026-07-01 07:00</td>
+        </tr><tr>
+          <td>24</td>
+          <td>2026070100026</td>
+          <td>莱茵半岛</td>
+          <td>3 <span class="tag tag-low">低</span></td>
+          <td>zrg2013</td>
+          <td>2026-07-01 04:30</td>
+        </tr><tr>
+          <td>25</td>
+          <td>2026070100807</td>
+          <td>后滩公园</td>
+          <td>2 <span class="tag tag-low">低</span></td>
+          <td>卢比安</td>
+          <td>2026-07-01 16:17</td>
+        </tr><tr>
+          <td>26</td>
+          <td>2026070100413</td>
+          <td>漕河泾科技绿洲</td>
+          <td>2 <span class="tag tag-low">低</span></td>
+          <td>飞飞飛飛</td>
+          <td>2026-07-01 13:00</td>
+        </tr><tr>
+          <td>27</td>
+          <td>2026070100689</td>
+          <td>黑鱼弄小区</td>
+          <td>1 <span class="tag tag-low">低</span></td>
+          <td>零摄氏度可乐Sam</td>
+          <td>2026-07-01 17:30</td>
+        </tr><tr>
+          <td>28</td>
+          <td>2026070100791</td>
+          <td>世博后滩湿地公园</td>
+          <td>1 <span class="tag tag-low">低</span></td>
+          <td>小闲闲</td>
+          <td>2026-07-01 17:00</td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section">
+  <h2>🐦 60种鸟类记录详情（按记录次数排序）</h2>
+  <div style="max-height:600px; overflow-y:auto;">
+    <table>
+      <thead><tr><th>#</th><th>鸟种</th><th>拉丁学名</th><th>目</th><th>科</th><th>记录次数</th><th>占比</th><th>分布</th></tr></thead>
+      <tbody>
+        
+          <tr>
+            <td>1</td>
+            <td><b>乌鸫</b></td>
+            <td><i>Turdus mandarinus</i></td>
+            <td>雀形目</td>
+            <td>鸫科</td>
+            <td>23</td>
+            <td class="pct">7.9%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:28.35616438356164px;background:#E74C3C"></div></div></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><b>珠颈斑鸠</b></td>
+            <td><i>Spilopelia chinensis</i></td>
+            <td>鸽形目</td>
+            <td>鸠鸽科</td>
+            <td>21</td>
+            <td class="pct">7.2%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:25.89041095890411px;background:#3498DB"></div></div></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><b>白头鹎</b></td>
+            <td><i>Pycnonotus sinensis</i></td>
+            <td>雀形目</td>
+            <td>鹎科</td>
+            <td>21</td>
+            <td class="pct">7.2%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:25.89041095890411px;background:#2ECC71"></div></div></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><b>鹊鸲</b></td>
+            <td><i>Copsychus saularis</i></td>
+            <td>雀形目</td>
+            <td>鹟科</td>
+            <td>19</td>
+            <td class="pct">6.5%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:23.424657534246574px;background:#F39C12"></div></div></td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td><b>麻雀</b></td>
+            <td><i>Passer montanus</i></td>
+            <td>雀形目</td>
+            <td>雀科</td>
+            <td>18</td>
+            <td class="pct">6.2%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:22.191780821917806px;background:#9B59B6"></div></div></td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td><b>棕背伯劳</b></td>
+            <td><i>Lanius schach</i></td>
+            <td>雀形目</td>
+            <td>伯劳科</td>
+            <td>13</td>
+            <td class="pct">4.5%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:16.027397260273972px;background:#1ABC9C"></div></div></td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td><b>灰喜鹊</b></td>
+            <td><i>Cyanopica cyanus</i></td>
+            <td>雀形目</td>
+            <td>鸦科</td>
+            <td>12</td>
+            <td class="pct">4.1%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:14.794520547945204px;background:#E67E22"></div></div></td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td><b>夜鹭</b></td>
+            <td><i>Nycticorax nycticorax</i></td>
+            <td>鹈形目</td>
+            <td>鹭科</td>
+            <td>11</td>
+            <td class="pct">3.8%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:13.561643835616438px;background:#2980B9"></div></div></td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td><b>八哥</b></td>
+            <td><i>Acridotheres cristatellus</i></td>
+            <td>雀形目</td>
+            <td>椋鸟科</td>
+            <td>11</td>
+            <td class="pct">3.8%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:13.561643835616438px;background:#27AE60"></div></div></td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td><b>家燕</b></td>
+            <td><i>Hirundo rustica</i></td>
+            <td>雀形目</td>
+            <td>燕科</td>
+            <td>10</td>
+            <td class="pct">3.4%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:12.32876712328767px;background:#8E44AD"></div></div></td>
+          </tr>
+          <tr>
+            <td>11</td>
+            <td><b>丝光椋鸟</b></td>
+            <td><i>Spodiopsar sericeus</i></td>
+            <td>雀形目</td>
+            <td>椋鸟科</td>
+            <td>9</td>
+            <td class="pct">3.1%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:11.095890410958903px;background:#D35400"></div></div></td>
+          </tr>
+          <tr>
+            <td>12</td>
+            <td><b>白鹭</b></td>
+            <td><i>Egretta garzetta</i></td>
+            <td>鹈形目</td>
+            <td>鹭科</td>
+            <td>8</td>
+            <td class="pct">2.7%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:9.863013698630137px;background:#16A085"></div></div></td>
+          </tr>
+          <tr>
+            <td>13</td>
+            <td><b>小䴙䴘</b></td>
+            <td><i>Tachybaptus ruficollis</i></td>
+            <td>䴙䴘目</td>
+            <td>䴙䴘科</td>
+            <td>7</td>
+            <td class="pct">2.4%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:8.63013698630137px;background:#C0392B"></div></div></td>
+          </tr>
+          <tr>
+            <td>14</td>
+            <td><b>黑水鸡</b></td>
+            <td><i>Gallinula chloropus</i></td>
+            <td>鹤形目</td>
+            <td>秧鸡科</td>
+            <td>7</td>
+            <td class="pct">2.4%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:8.63013698630137px;background:#7F8C8D"></div></div></td>
+          </tr>
+          <tr>
+            <td>15</td>
+            <td><b>灰椋鸟</b></td>
+            <td><i>Spodiopsar cineraceus</i></td>
+            <td>雀形目</td>
+            <td>椋鸟科</td>
+            <td>7</td>
+            <td class="pct">2.4%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:8.63013698630137px;background:#BDC3C7"></div></div></td>
+          </tr>
+          <tr>
+            <td>16</td>
+            <td><b>黑尾蜡嘴雀</b></td>
+            <td><i>Eophona migratoria</i></td>
+            <td>雀形目</td>
+            <td>燕雀科</td>
+            <td>7</td>
+            <td class="pct">2.4%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:8.63013698630137px;background:#2C3E50"></div></div></td>
+          </tr>
+          <tr>
+            <td>17</td>
+            <td><b>喜鹊</b></td>
+            <td><i>Pica serica</i></td>
+            <td>雀形目</td>
+            <td>鸦科</td>
+            <td>5</td>
+            <td class="pct">1.7%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:6.164383561643835px;background:#F1C40F"></div></div></td>
+          </tr>
+          <tr>
+            <td>18</td>
+            <td><b>大山雀</b></td>
+            <td><i>Parus minor</i></td>
+            <td>雀形目</td>
+            <td>山雀科</td>
+            <td>5</td>
+            <td class="pct">1.7%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:6.164383561643835px;background:#00BCD4"></div></div></td>
+          </tr>
+          <tr>
+            <td>19</td>
+            <td><b>纯色山鹪莺</b></td>
+            <td><i>Prinia inornata</i></td>
+            <td>雀形目</td>
+            <td>扇尾莺科</td>
+            <td>5</td>
+            <td class="pct">1.7%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:6.164383561643835px;background:#FF5722"></div></div></td>
+          </tr>
+          <tr>
+            <td>20</td>
+            <td><b>暗绿绣眼鸟</b></td>
+            <td><i>Zosterops simplex</i></td>
+            <td>雀形目</td>
+            <td>绣眼鸟科</td>
+            <td>5</td>
+            <td class="pct">1.7%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:6.164383561643835px;background:#795548"></div></div></td>
+          </tr>
+          <tr>
+            <td>21</td>
+            <td><b>白鹡鸰</b></td>
+            <td><i>Motacilla alba</i></td>
+            <td>雀形目</td>
+            <td>鹡鸰科</td>
+            <td>5</td>
+            <td class="pct">1.7%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:6.164383561643835px;background:#607D8B"></div></div></td>
+          </tr>
+          <tr>
+            <td>22</td>
+            <td><b>苍鹭</b></td>
+            <td><i>Ardea cinerea</i></td>
+            <td>鹈形目</td>
+            <td>鹭科</td>
+            <td>4</td>
+            <td class="pct">1.4%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4.931506849315069px;background:#4CAF50"></div></div></td>
+          </tr>
+          <tr>
+            <td>23</td>
+            <td><b>黑脸噪鹛</b></td>
+            <td><i>Pterorhinus perspicillatus</i></td>
+            <td>雀形目</td>
+            <td>噪鹛科</td>
+            <td>4</td>
+            <td class="pct">1.4%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4.931506849315069px;background:#FF9800"></div></div></td>
+          </tr>
+          <tr>
+            <td>24</td>
+            <td><b>白腰文鸟</b></td>
+            <td><i>Lonchura striata</i></td>
+            <td>雀形目</td>
+            <td>梅花雀科</td>
+            <td>4</td>
+            <td class="pct">1.4%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4.931506849315069px;background:#673AB7"></div></div></td>
+          </tr>
+          <tr>
+            <td>25</td>
+            <td><b>金翅雀</b></td>
+            <td><i>Chloris sinica</i></td>
+            <td>雀形目</td>
+            <td>燕雀科</td>
+            <td>4</td>
+            <td class="pct">1.4%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4.931506849315069px;background:#2196F3"></div></div></td>
+          </tr>
+          <tr>
+            <td>26</td>
+            <td><b>山斑鸠</b></td>
+            <td><i>Streptopelia orientalis</i></td>
+            <td>鸽形目</td>
+            <td>鸠鸽科</td>
+            <td>3</td>
+            <td class="pct">1.0%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#009688"></div></div></td>
+          </tr>
+          <tr>
+            <td>27</td>
+            <td><b>小杜鹃</b></td>
+            <td><i>Cuculus poliocephalus</i></td>
+            <td>鹃形目</td>
+            <td>杜鹃科</td>
+            <td>3</td>
+            <td class="pct">1.0%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#E91E63"></div></div></td>
+          </tr>
+          <tr>
+            <td>28</td>
+            <td><b>大杜鹃</b></td>
+            <td><i>Cuculus canorus</i></td>
+            <td>鹃形目</td>
+            <td>杜鹃科</td>
+            <td>2</td>
+            <td class="pct">0.7%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#CDDC39"></div></div></td>
+          </tr>
+          <tr>
+            <td>29</td>
+            <td><b>牛背鹭</b></td>
+            <td><i>Bubulcus coromandus</i></td>
+            <td>鹈形目</td>
+            <td>鹭科</td>
+            <td>2</td>
+            <td class="pct">0.7%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#FFC107"></div></div></td>
+          </tr>
+          <tr>
+            <td>30</td>
+            <td><b>金眶鸻</b></td>
+            <td><i>Charadrius dubius</i></td>
+            <td>鸻形目</td>
+            <td>鸻科</td>
+            <td>2</td>
+            <td class="pct">0.7%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#03A9F4"></div></div></td>
+          </tr>
+          <tr>
+            <td>31</td>
+            <td><b>矶鹬</b></td>
+            <td><i>Actitis hypoleucos</i></td>
+            <td>鸻形目</td>
+            <td>鹬科</td>
+            <td>2</td>
+            <td class="pct">0.7%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#9E9E9E"></div></div></td>
+          </tr>
+          <tr>
+            <td>32</td>
+            <td><b>黑卷尾</b></td>
+            <td><i>Dicrurus macrocercus</i></td>
+            <td>雀形目</td>
+            <td>卷尾科</td>
+            <td>2</td>
+            <td class="pct">0.7%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#8BC34A"></div></div></td>
+          </tr>
+          <tr>
+            <td>33</td>
+            <td><b>棕头鸦雀</b></td>
+            <td><i>Sinosuthora webbiana</i></td>
+            <td>雀形目</td>
+            <td>鸦雀科</td>
+            <td>2</td>
+            <td class="pct">0.7%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#FF5722"></div></div></td>
+          </tr>
+          <tr>
+            <td>34</td>
+            <td><b>白颊噪鹛</b></td>
+            <td><i>Pterorhinus sannio</i></td>
+            <td>雀形目</td>
+            <td>噪鹛科</td>
+            <td>2</td>
+            <td class="pct">0.7%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#E74C3C"></div></div></td>
+          </tr>
+          <tr>
+            <td>35</td>
+            <td><b>黑领椋鸟</b></td>
+            <td><i>Gracupica nigricollis</i></td>
+            <td>雀形目</td>
+            <td>椋鸟科</td>
+            <td>2</td>
+            <td class="pct">0.7%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#3498DB"></div></div></td>
+          </tr>
+          <tr>
+            <td>36</td>
+            <td><b>赤麻鸭</b></td>
+            <td><i>Tadorna ferruginea</i></td>
+            <td>雁形目</td>
+            <td>鸭科</td>
+            <td>1</td>
+            <td class="pct">0.3%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#2ECC71"></div></div></td>
+          </tr>
+          <tr>
+            <td>37</td>
+            <td><b>小鸦鹃</b></td>
+            <td><i>Centropus bengalensis</i></td>
+            <td>鹃形目</td>
+            <td>杜鹃科</td>
+            <td>1</td>
+            <td class="pct">0.3%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#F39C12"></div></div></td>
+          </tr>
+          <tr>
+            <td>38</td>
+            <td><b>四声杜鹃</b></td>
+            <td><i>Cuculus micropterus</i></td>
+            <td>鹃形目</td>
+            <td>杜鹃科</td>
+            <td>1</td>
+            <td class="pct">0.3%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#9B59B6"></div></div></td>
+          </tr>
+          <tr>
+            <td>39</td>
+            <td><b>白胸苦恶鸟</b></td>
+            <td><i>Amaurornis phoenicurus</i></td>
+            <td>鹤形目</td>
+            <td>秧鸡科</td>
+            <td>1</td>
+            <td class="pct">0.3%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#1ABC9C"></div></div></td>
+          </tr>
+          <tr>
+            <td>40</td>
+            <td><b>白骨顶</b></td>
+            <td><i>Fulica atra</i></td>
+            <td>鹤形目</td>
+            <td>秧鸡科</td>
+            <td>1</td>
+            <td class="pct">0.3%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#E67E22"></div></div></td>
+          </tr>
+          <tr>
+            <td>41</td>
+            <td><b>黄斑苇鳽</b></td>
+            <td><i>Ixobrychus sinensis</i></td>
+            <td>鹈形目</td>
+            <td>鹭科</td>
+            <td>1</td>
+            <td class="pct">0.3%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#2980B9"></div></div></td>
+          </tr>
+          <tr>
+            <td>42</td>
+            <td><b>黑苇鳽</b></td>
+            <td><i>Ixobrychus flavicollis</i></td>
+            <td>鹈形目</td>
+            <td>鹭科</td>
+            <td>1</td>
+            <td class="pct">0.3%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#27AE60"></div></div></td>
+          </tr>
+          <tr>
+            <td>43</td>
+            <td><b>池鹭</b></td>
+            <td><i>Ardeola bacchus</i></td>
+            <td>鹈形目</td>
+            <td>鹭科</td>
+            <td>1</td>
+            <td class="pct">0.3%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#8E44AD"></div></div></td>
+          </tr>
+          <tr>
+            <td>44</td>
+            <td><b>大白鹭</b></td>
+            <td><i>Ardea alba</i></td>
+            <td>鹈形目</td>
+            <td>鹭科</td>
+            <td>1</td>
+            <td class="pct">0.3%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#D35400"></div></div></td>
+          </tr>
+          <tr>
+            <td>45</td>
+            <td><b>中白鹭</b></td>
+            <td><i>Ardea intermedia</i></td>
+            <td>鹈形目</td>
+            <td>鹭科</td>
+            <td>1</td>
+            <td class="pct">0.3%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#16A085"></div></div></td>
+          </tr>
+          <tr>
+            <td>46</td>
+            <td><b>针尾沙锥</b></td>
+            <td><i>Gallinago stenura</i></td>
+            <td>鸻形目</td>
+            <td>鹬科</td>
+            <td>1</td>
+            <td class="pct">0.3%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#C0392B"></div></div></td>
+          </tr>
+          <tr>
+            <td>47</td>
+            <td><b>黑翅鸢</b></td>
+            <td><i>Elanus caeruleus</i></td>
+            <td>鹰形目</td>
+            <td>鹰科</td>
+            <td>1</td>
+            <td class="pct">0.3%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#7F8C8D"></div></div></td>
+          </tr>
+          <tr>
+            <td>48</td>
+            <td><b>凤头鹰</b></td>
+            <td><i>Accipiter trivirgatus</i></td>
+            <td>鹰形目</td>
+            <td>鹰科</td>
+            <td>1</td>
+            <td class="pct">0.3%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#BDC3C7"></div></div></td>
+          </tr>
+          <tr>
+            <td>49</td>
+            <td><b>白腹鹞</b></td>
+            <td><i>Circus spilonotus</i></td>
+            <td>鹰形目</td>
+            <td>鹰科</td>
+            <td>1</td>
+            <td class="pct">0.3%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#2C3E50"></div></div></td>
+          </tr>
+          <tr>
+            <td>50</td>
+            <td><b>戴胜</b></td>
+            <td><i>Upupa epops</i></td>
+            <td>犀鸟目</td>
+            <td>戴胜科</td>
+            <td>1</td>
+            <td class="pct">0.3%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#F1C40F"></div></div></td>
+          </tr>
+          <tr>
+            <td>51</td>
+            <td><b>普通翠鸟</b></td>
+            <td><i>Alcedo atthis</i></td>
+            <td>佛法僧目</td>
+            <td>翠鸟科</td>
+            <td>1</td>
+            <td class="pct">0.3%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#00BCD4"></div></div></td>
+          </tr>
+          <tr>
+            <td>52</td>
+            <td><b>小灰山椒鸟</b></td>
+            <td><i>Pericrocotus cantonensis</i></td>
+            <td>雀形目</td>
+            <td>山椒鸟科</td>
+            <td>1</td>
+            <td class="pct">0.3%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#FF5722"></div></div></td>
+          </tr>
+          <tr>
+            <td>53</td>
+            <td><b>红尾伯劳</b></td>
+            <td><i>Lanius cristatus</i></td>
+            <td>雀形目</td>
+            <td>伯劳科</td>
+            <td>1</td>
+            <td class="pct">0.3%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#795548"></div></div></td>
+          </tr>
+          <tr>
+            <td>54</td>
+            <td><b>小云雀</b></td>
+            <td><i>Alauda gulgula</i></td>
+            <td>雀形目</td>
+            <td>百灵科</td>
+            <td>1</td>
+            <td class="pct">0.3%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#607D8B"></div></div></td>
+          </tr>
+          <tr>
+            <td>55</td>
+            <td><b>棕扇尾莺</b></td>
+            <td><i>Cisticola juncidis</i></td>
+            <td>雀形目</td>
+            <td>扇尾莺科</td>
+            <td>1</td>
+            <td class="pct">0.3%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#4CAF50"></div></div></td>
+          </tr>
+          <tr>
+            <td>56</td>
+            <td><b>远东树莺</b></td>
+            <td><i>Horornis canturians</i></td>
+            <td>雀形目</td>
+            <td>树莺科</td>
+            <td>1</td>
+            <td class="pct">0.3%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#FF9800"></div></div></td>
+          </tr>
+          <tr>
+            <td>57</td>
+            <td><b>画眉</b></td>
+            <td><i>Garrulax canorus</i></td>
+            <td>雀形目</td>
+            <td>噪鹛科</td>
+            <td>1</td>
+            <td class="pct">0.3%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#673AB7"></div></div></td>
+          </tr>
+          <tr>
+            <td>58</td>
+            <td><b>白腹蓝鹟</b></td>
+            <td><i>Cyanoptila cyanomelana</i></td>
+            <td>雀形目</td>
+            <td>鹟科</td>
+            <td>1</td>
+            <td class="pct">0.3%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#2196F3"></div></div></td>
+          </tr>
+          <tr>
+            <td>59</td>
+            <td><b>红胁蓝尾鸲</b></td>
+            <td><i>Tarsiger cyanurus</i></td>
+            <td>雀形目</td>
+            <td>鹟科</td>
+            <td>1</td>
+            <td class="pct">0.3%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#009688"></div></div></td>
+          </tr>
+          <tr>
+            <td>60</td>
+            <td><b>黄鹡鸰</b></td>
+            <td><i>Motacilla tschutschensis</i></td>
+            <td>雀形目</td>
+            <td>鹡鸰科</td>
+            <td>1</td>
+            <td class="pct">0.3%</td>
+            <td><div class="bar-cell"><div class="bar-fill" style="width:4px;background:#E91E63"></div></div></td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</div>
+
+<script>
+const speciesNames = ["乌鸫","珠颈斑鸠","白头鹎","鹊鸲","麻雀","棕背伯劳","灰喜鹊","夜鹭","八哥","家燕","丝光椋鸟","白鹭","小䴙䴘","黑水鸡","灰椋鸟","黑尾蜡嘴雀","喜鹊","大山雀","纯色山鹪莺","暗绿绣眼鸟","白鹡鸰","苍鹭","黑脸噪鹛","白腰文鸟","金翅雀","山斑鸠","小杜鹃","大杜鹃","牛背鹭","金眶鸻","矶鹬","黑卷尾","棕头鸦雀","白颊噪鹛","黑领椋鸟","赤麻鸭","小鸦鹃","四声杜鹃","白胸苦恶鸟","白骨顶","黄斑苇鳽","黑苇鳽","池鹭","大白鹭","中白鹭","针尾沙锥","黑翅鸢","凤头鹰","白腹鹞","戴胜","普通翠鸟","小灰山椒鸟","红尾伯劳","小云雀","棕扇尾莺","远东树莺","画眉","白腹蓝鹟","红胁蓝尾鸲","黄鹡鸰"];
+const speciesCounts = [23,21,21,19,18,13,12,11,11,10,9,8,7,7,7,7,5,5,5,5,5,4,4,4,4,3,3,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
+const colors = ["#E74C3C","#3498DB","#2ECC71","#F39C12","#9B59B6","#1ABC9C","#E67E22","#2980B9","#27AE60","#8E44AD","#D35400","#16A085","#C0392B","#7F8C8D","#BDC3C7","#2C3E50","#F1C40F","#00BCD4","#FF5722","#795548","#607D8B","#4CAF50","#FF9800","#673AB7","#2196F3","#009688","#E91E63","#CDDC39","#FFC107","#03A9F4","#9E9E9E","#8BC34A","#FF5722"];
+
+// Pie chart - top 20 + others
+const topN = 20;
+const topNames = speciesNames.slice(0, topN);
+const topCounts = speciesCounts.slice(0, topN);
+const otherCount = speciesCounts.slice(topN).reduce((a,b)=>a+b,0);
+const pieLabels = otherCount > 0 ? [...topNames, `其他(${species.length - topN}种)`] : topNames;
+const pieData = otherCount > 0 ? [...topCounts, otherCount] : topCounts;
+
+new Chart(document.getElementById("pieChart"), {
+  type: "pie",
+  data: { labels: pieLabels, datasets: [{ data: pieData, backgroundColor: colors.slice(0, pieLabels.length) }] },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      title: { display: true, text: "鸟种记录次数分布 · 饼图", font: {size:15}, padding: 8 },
+      legend: { position: "right", labels: { font: {size:10}, padding: 6, boxWidth: 10 } },
+      tooltip: { callbacks: { label: ctx => `${ctx.label}: ${ctx.raw}次 (${(ctx.raw/292*100).toFixed(1)}%)` } }
+    }
+  }
+});
+
+new Chart(document.getElementById("barChart"), {
+  type: "bar",
+  data: {
+    labels: speciesNames,
+    datasets: [{
+      label: "记录次数",
+      data: speciesCounts,
+      backgroundColor: speciesCounts.map((_,i) => colors[i % colors.length])
+    }]
+  },
+  options: {
+    indexAxis: "y",
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      title: { display: true, text: "全部鸟种记录次数 · 柱状图", font: {size:15}, padding: 8 },
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => `${ctx.label}: ${ctx.raw}次` } }
+    },
+    scales: {
+      x: { title: { display: true, text: "记录次数" } },
+      y: { ticks: { font: {size:9} } }
+    }
+  }
+});
+</script>
+</body>
+</html>
