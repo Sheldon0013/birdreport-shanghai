@@ -112,6 +112,20 @@ for _latin, _entry in _no_rarity.items():
 # Load today's query data
 data = json.load(open('/tmp/bird_daily.json'))
 species = data['species']
+# Override season/term/date/colors from data file (not system time)
+season = data.get('season', season)
+term = data.get('term', term)
+if data.get('date'):
+    yesterday = data['date']
+    date_display = datetime.strptime(yesterday, '%Y-%m-%d').strftime('%Y年%-m月%-d日')
+# Recompute colors based on actual season
+season_colors = {
+    '春': ("--g950:#3d0009;--g900:#7f0013;--g700:#e50022;--g500:#ff3251;--g200:#ff99a8;--g100:#fed6dc;--g50:#ffeaed", "#3d0009", "#e50022", "#ff3251"),
+    '夏': ("--g950:#0f2d19;--g900:#205e35;--g700:#3baa60;--g500:#67ca89;--g200:#b3e4c4;--g100:#e0f4e7;--g50:#eff9f3", "#0f2d19", "#3baa60", "#67ca89"),
+    '秋': ("--g950:#3d1f00;--g900:#7f4100;--g700:#e57600;--g500:#ff9b32;--g200:#ffcd99;--g100:#feebd6;--g50:#fff5ea", "#3d1f00", "#e57600", "#ff9b32"),
+    '冬': ("--g950:#00283d;--g900:#00537f;--g700:#0096e5;--g500:#32b8ff;--g200:#99dbff;--g100:#d6f0fe;--g50:#eaf7ff", "#00283d", "#0096e5", "#32b8ff"),
+}
+css, hs, ds, fs = season_colors.get(season, season_colors['夏'])
 
 # Apply checklist data - use Latin name as primary key for exact matching
 order_map = {}  # Chinese name → checklist order number
@@ -227,10 +241,11 @@ if expected_date not in content:
     errors.append(f'date mismatch: expected {expected_date}')
 
 # 2. Season check: story must match season narrative
+data_season = data.get('season', season)
 season_keywords = {'春':'候鸟开始北迁','夏':'白鹭、夜鹭在湿地间穿行','秋':'候鸟南迁接近尾声','冬':'崇明东滩越冬'}
-expected_story = season_keywords.get(season, '')
+expected_story = season_keywords.get(data_season, '')
 if expected_story and expected_story not in content:
-    errors.append(f'story does not match {season} season')
+    errors.append(f'story does not match {data_season} season')
 
 # 3. Checklist order check: first species should have lower order_idx than last (non-gray)
 matched_birds = [s for s in species if s['order_idx'] < 99998]
