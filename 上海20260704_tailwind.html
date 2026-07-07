@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Shanghai &middot; 4 July 2026</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: { serif: ["Cormorant Garamond","Georgia","Times New Roman",serif], sans: ["system-ui","Microsoft YaHei",sans-serif] },
+      colors: {
+        warm: {
+          950: '#2e1e0f', 900: '#603e1f', 700: '#ad7038',
+          500: '#c5874d', 400: '#cc9765', 200: '#e5cbb2',
+          100: '#f4eae0', 50:  '#f9f4ef',
+        }
+      }
+    }
+  }
+}
+</script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+</style>
+</head>
+<body class="bg-warm-50 text-warm-950 font-serif antialiased">
+
+<header class="text-center pt-24 pb-12 px-6">
+  <p class="text-xs tracking-[0.3em] uppercase text-warm-700/60 mb-3">Shanghai Bird Observations</p>
+  <h1 class="text-5xl md:text-6xl font-medium tracking-tight text-warm-950 leading-tight">
+    A Day in <i class="text-warm-500 not-italic" style="font-style:italic">Shanghai</i>
+  </h1>
+  <p class="text-sm tracking-[0.2em] uppercase text-warm-700/50 mt-4">4 July 2026 &middot; Saturday</p>
+</header>
+
+<main class="max-w-5xl mx-auto px-6">
+
+  <!-- Stats -->
+  <div class="grid grid-cols-2 md:grid-cols-4 divide-x divide-warm-200 border border-warm-200 mb-16">
+    <div class="py-10 text-center"><div class="text-5xl font-medium">5</div><div class="text-xs tracking-[0.3em] uppercase text-warm-700/50 mt-2">Checklists</div></div>
+    <div class="py-10 text-center"><div class="text-5xl font-medium text-warm-500">34</div><div class="text-xs tracking-[0.3em] uppercase text-warm-700/50 mt-2">Species</div></div>
+    <div class="py-10 text-center"><div class="text-5xl font-medium">57</div><div class="text-xs tracking-[0.3em] uppercase text-warm-700/50 mt-2">Records</div></div>
+    <div class="py-10 text-center"><div class="text-5xl font-medium">7</div><div class="text-xs tracking-[0.3em] uppercase text-warm-700/50 mt-2">Orders</div></div>
+  </div>
+
+  <!-- Rare & Notable -->
+  <p class="text-xs tracking-[0.3em] uppercase text-warm-700/50 mb-6 pb-4 border-b border-warm-200">Rare &amp; Notable</p>
+  <p class="text-center text-warm-700/70 text-lg italic mb-8">
+    Of <span class="text-warm-950 not-italic font-medium">34</span> species recorded today,
+    <span class="inline-block bg-warm-200/50 text-warm-900 text-xs tracking-[0.15em] uppercase px-2 py-0.5">1 Rare</span>
+    and
+    <span class="inline-block bg-warm-200/50 text-warm-500 text-xs tracking-[0.15em] uppercase px-2 py-0.5">2 Class II</span>
+    protected.
+  </p>
+
+  <div class="grid grid-cols-2 md:grid-cols-5 divide-x divide-warm-200 border border-warm-200 mb-16">
+    <div class="p-6 text-center"><p class="text-xs tracking-[0.2em] uppercase text-warm-500 mb-2">1 &middot; Rare</p><p class="text-base font-semibold">Lesser Coucal</p><p class="text-xs italic text-warm-700/50 mt-1">Centropus bengalensis</p><p class="text-xs tracking-[0.15em] uppercase text-warm-700/50 mt-2">Class II</p></div>
+    <div class="p-6 text-center"><p class="text-xs tracking-[0.2em] uppercase text-warm-700/70 mb-2">2 &middot; Uncommon</p><p class="text-base font-semibold">Black-winged Kite</p><p class="text-xs italic text-warm-700/50 mt-1">Elanus caeruleus</p><p class="text-xs tracking-[0.15em] uppercase text-warm-700/50 mt-2">Class II</p></div>
+    <div class="p-6 text-center"><p class="text-xs tracking-[0.2em] uppercase text-warm-700/70 mb-2">3 &middot; Uncommon</p><p class="text-base font-semibold">Common Kestrel</p><p class="text-xs italic text-warm-700/50 mt-1">Falco tinnunculus</p><p class="text-xs tracking-[0.15em] uppercase text-warm-700/50 mt-2">Class II</p></div>
+    <div class="p-6 text-center"><p class="text-xs tracking-[0.2em] uppercase text-warm-700/70 mb-2">4 &middot; Uncommon</p><p class="text-base font-semibold">Black Drongo</p><p class="text-xs italic text-warm-700/50 mt-1">Dicrurus macrocercus</p><p class="text-xs text-warm-700/30 mt-2">&mdash;</p></div>
+    <div class="p-6 text-center"><p class="text-xs tracking-[0.2em] uppercase text-warm-700/70 mb-2">5 &middot; Uncommon</p><p class="text-base font-semibold">Red-rumped Swallow</p><p class="text-xs italic text-warm-700/50 mt-1">Cecropis daurica</p><p class="text-xs text-warm-700/30 mt-2">&mdash;</p></div>
+  </div>
+
+  <!-- Charts + Summary -->
+  <div class="grid md:grid-cols-2 gap-12 mb-16">
+    <div>
+      <p class="text-xs tracking-[0.3em] uppercase text-warm-700/50 mb-4 pb-3 border-b border-warm-200">Record Distribution</p>
+      <div class="h-64"><canvas id="pieChart"></canvas></div>
+    </div>
+    <div>
+      <p class="text-xs tracking-[0.3em] uppercase text-warm-700/50 mb-4 pb-3 border-b border-warm-200">Abundance</p>
+      <div class="space-y-1 border border-warm-200">
+        <div class="flex justify-between items-center p-4 border-b border-warm-200"><span class="text-sm"><span class="inline-block bg-warm-200/50 text-warm-900 text-[10px] tracking-[0.15em] uppercase px-2 py-0.5 mr-2">Rare</span>1 species</span><span class="text-xs text-warm-700/50">2.9%</span></div>
+        <div class="flex justify-between items-center p-4 border-b border-warm-200"><span class="text-sm"><span class="inline-block bg-warm-100 text-warm-700 text-[10px] tracking-[0.15em] uppercase px-2 py-0.5 mr-2">Uncommon</span>19 species</span><span class="text-xs text-warm-700/50">55.9%</span></div>
+        <div class="flex justify-between items-center p-4"><span class="text-sm"><span class="inline-block border border-warm-200 text-warm-700/50 text-[10px] tracking-[0.15em] uppercase px-2 py-0.5 mr-2">Common</span>14 species</span><span class="text-xs text-warm-700/50">41.2%</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Full Checklist -->
+  <p class="text-xs tracking-[0.3em] uppercase text-warm-700/50 mb-4 pb-3 border-b border-warm-200">Complete Checklist</p>
+  <div class="overflow-x-auto border border-warm-200">
+    <table class="w-full text-sm">
+      <thead><tr class="text-[10px] tracking-[0.2em] uppercase text-warm-700/50 border-b border-warm-200"><th class="text-left p-4 font-medium">#</th><th class="text-left p-4 font-medium">Species</th><th class="text-left p-4 font-medium hidden md:table-cell">Order</th><th class="text-left p-4 font-medium hidden md:table-cell">Family</th><th class="text-right p-4 font-medium">Records</th><th class="text-left p-4 font-medium">Status</th></tr></thead>
+      <tbody id="bird-table"></tbody>
+    </table>
+  </div>
+
+  <footer class="text-center py-16 text-xs tracking-[0.2em] uppercase text-warm-700/30 border-t border-warm-200 mt-16">
+    Data via China Bird Report &middot; birdreport.cn<br>
+    Checklist reference: Shanghai Bird Checklist 2025
+  </footer>
+</main>
+
+<script>
+(function(){
+var B=[{n:"Spotted Dove",cn:"珠颈斑鸠",l:"Spilopelia chinensis",o:"Columbiformes",f:"Columbidae",c:4,s:"common"},{n:"Light-vented Bulbul",cn:"白头鹎",l:"Pycnonotus sinensis",o:"Passeriformes",f:"Pycnonotidae",c:4,s:"common"},{n:"Oriental Magpie-Robin",cn:"鹊鸲",l:"Copsychus saularis",o:"Passeriformes",f:"Muscicapidae",c:4,s:"uncommon"},{n:"Chinese Blackbird",cn:"乌鸫",l:"Turdus mandarinus",o:"Passeriformes",f:"Turdidae",c:3,s:"common"},{n:"Little Grebe",cn:"小鸊鷉",l:"Tachybaptus ruficollis",o:"Podicipediformes",f:"Podicipedidae",c:2,s:"common"},{n:"Common Moorhen",cn:"黑水鸡",l:"Gallinula chloropus",o:"Gruiformes",f:"Rallidae",c:2,s:"common"},{n:"Little Egret",cn:"白鹭",l:"Egretta garzetta",o:"Pelecaniformes",f:"Ardeidae",c:2,s:"common"},{n:"Common Kingfisher",cn:"普通翠鸟",l:"Alcedo atthis",o:"Coraciiformes",f:"Alcedinidae",c:2,s:"common"},{n:"Long-tailed Shrike",cn:"棕背伯劳",l:"Lanius schach",o:"Passeriformes",f:"Laniidae",c:2,s:"common"},{n:"Plain Prinia",cn:"纯色山鹪莺",l:"Prinia inornata",o:"Passeriformes",f:"Cisticolidae",c:2,s:"uncommon"},{n:"Lesser Coucal",cn:"小鸦鹃",l:"Centropus bengalensis",o:"Cuculiformes",f:"Cuculidae",c:1,s:"rare",p:2},{n:"Indian Cuckoo",cn:"四声杜鹃",l:"Cuculus micropterus",o:"Cuculiformes",f:"Cuculidae",c:1,s:"uncommon"},{n:"Common Cuckoo",cn:"大杜鹃",l:"Cuculus canorus",o:"Cuculiformes",f:"Cuculidae",c:1,s:"uncommon"},{n:"White-breasted Waterhen",cn:"白胸苦恶鸟",l:"Amaurornis phoenicurus",o:"Gruiformes",f:"Rallidae",c:1,s:"uncommon"},{n:"Chinese Pond Heron",cn:"池鹭",l:"Ardeola bacchus",o:"Pelecaniformes",f:"Ardeidae",c:1,s:"uncommon"},{n:"Grey Heron",cn:"苍鹭",l:"Ardea cinerea",o:"Pelecaniformes",f:"Ardeidae",c:1,s:"common"},{n:"Great Egret",cn:"大白鹭",l:"Ardea alba",o:"Pelecaniformes",f:"Ardeidae",c:1,s:"uncommon"},{n:"Black-winged Stilt",cn:"黑翅长脚鹬",l:"Himantopus himantopus",o:"Charadriiformes",f:"Recurvirostridae",c:1,s:"uncommon"},{n:"Black-winged Kite",cn:"黑翅鸢",l:"Elanus caeruleus",o:"Accipitriformes",f:"Accipitridae",c:1,s:"uncommon",p:2},{n:"Common Kestrel",cn:"红隼",l:"Falco tinnunculus",o:"Falconiformes",f:"Falconidae",c:1,s:"uncommon",p:2},{n:"Black Drongo",cn:"黑卷尾",l:"Dicrurus macrocercus",o:"Passeriformes",f:"Dicruridae",c:1,s:"uncommon"},{n:"Barn Swallow",cn:"家燕",l:"Hirundo rustica",o:"Passeriformes",f:"Hirundinidae",c:1,s:"common"},{n:"Red-rumped Swallow",cn:"金腰燕",l:"Cecropis daurica",o:"Passeriformes",f:"Hirundinidae",c:1,s:"uncommon"},{n:"Swinhoe's White-eye",cn:"暗绿绣眼鸟",l:"Zosterops simplex",o:"Passeriformes",f:"Zosteropidae",c:1,s:"uncommon"},{n:"White-browed Laughingthrush",cn:"白颊噪鹛",l:"Pterorhinus sannio",o:"Passeriformes",f:"Leiothrichidae",c:1,s:"uncommon"},{n:"Crested Myna",cn:"八哥",l:"Acridotheres cristatellus",o:"Passeriformes",f:"Sturnidae",c:1,s:"common"},{n:"Red-billed Starling",cn:"丝光椋鸟",l:"Spodiopsar sericeus",o:"Passeriformes",f:"Sturnidae",c:1,s:"uncommon"},{n:"White-cheeked Starling",cn:"灰椋鸟",l:"Spodiopsar cineraceus",o:"Passeriformes",f:"Sturnidae",c:1,s:"uncommon"},{n:"Black-collared Starling",cn:"黑领椋鸟",l:"Gracupica nigricollis",o:"Passeriformes",f:"Sturnidae",c:1,s:"uncommon"},{n:"Eurasian Tree Sparrow",cn:"麻雀",l:"Passer montanus",o:"Passeriformes",f:"Passeridae",c:1,s:"common"},{n:"White Wagtail",cn:"白鹡鸰",l:"Motacilla alba",o:"Passeriformes",f:"Motacillidae",c:1,s:"common"},{n:"Chinese Grosbeak",cn:"黑尾蜡嘴雀",l:"Eophona migratoria",o:"Passeriformes",f:"Fringillidae",c:1,s:"uncommon"},{n:"Oriental Greenfinch",cn:"金翅雀",l:"Chloris sinica",o:"Passeriformes",f:"Fringillidae",c:1,s:"uncommon"},{n:"Common Pheasant",cn:"环颈雉",l:"Phasianus colchicus",o:"Galliformes",f:"Phasianidae",c:1,s:"common"}];
+
+B.sort(function(a,b){return b.c-a.c});
+var t=B.reduce(function(s,b){return s+b.c},0);
+
+document.getElementById('bird-table').innerHTML=B.map(function(b,i){
+  var st='<span class="text-[10px] tracking-[0.15em] uppercase text-warm-700/30">Common</span>';
+  if(b.s==='rare') st='<span class="inline-block bg-warm-200/50 text-warm-900 text-[10px] tracking-[0.15em] uppercase px-2 py-0.5">Rare</span>';
+  else if(b.s==='uncommon') st='<span class="inline-block bg-warm-100 text-warm-700 text-[10px] tracking-[0.15em] uppercase px-2 py-0.5">Uncommon</span>';
+  if(b.p) st+=' <span class="inline-block bg-warm-200/30 text-warm-500 text-[10px] tracking-[0.15em] uppercase px-2 py-0.5 ml-1">Cl.II</span>';
+  return '<tr class="border-b border-warm-200/50 hover:bg-warm-100/30"><td class="p-4 text-warm-700/50">'+(i+1)+'</td><td class="p-4"><span class="font-semibold">'+b.n+'</span> <span class="text-warm-700/50">'+b.cn+'</span><br><span class="text-xs italic text-warm-700/40">'+b.l+'</span></td><td class="p-4 text-sm hidden md:table-cell">'+b.o+'</td><td class="p-4 text-sm hidden md:table-cell">'+b.f+'</td><td class="p-4 text-right font-semibold text-warm-500">'+b.c+'</td><td class="p-4">'+st+'</td></tr>';
+}).join('');
+
+try{if(typeof Chart!=='undefined'){
+  var n=B.map(function(b){return b.n}),c=B.map(function(b){return b.c});
+  var tn=n.slice(0,8).concat(['Others ('+(n.length-8)+')']);
+  var tc=c.slice(0,8).concat([c.slice(8).reduce(function(a,b){return a+b},0)]);
+  var cols=['#ad7038','#c5874d','#cc9765','#d4b088','#e5cbb2','#f0dbca','#b8895c','#a07848','#e5ddd0'];
+  var p=document.getElementById('pieChart');
+  if(p) new Chart(p,{type:'doughnut',data:{labels:tn,datasets:[{data:tc,backgroundColor:cols,borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},cutout:'65%'}});
+}}catch(e){}
+})();
+</script>
+</body>
+</html>
