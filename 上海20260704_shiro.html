@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Shanghai Bird Notes &mdash; 4 July 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+
+  body{
+    font-family: 'Noto Serif SC', 'Georgia', 'Songti SC', serif;
+    color: #1a201a; background: #fff;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.7;
+  }
+
+  /* -- colors -- */
+  :root{
+    --g950: #152a12; --g900: #1a3316; --g700: #3a7a32;
+    --g500: #5a9e50; --g200: #a3d09c; --g100: #d4ead0;
+    --g50: #eaf6e7;
+  }
+
+  /* -- narrative sections -- */
+  section{ padding: 80px 0; position: relative; overflow: hidden; }
+  .inner{ max-width: 960px; margin: 0 auto; padding: 0 28px; }
+
+  /* -- hero -- */
+  .hero{
+    min-height: 85vh; display: flex; flex-direction: column; justify-content: center;
+    align-items: center; text-align: center; padding: 60px 28px;
+    background: linear-gradient(180deg, #fff 0%, var(--g50) 100%);
+    position: relative;
+  }
+  .hero .ornament{
+    position: absolute; opacity: 0.06; pointer-events: none;
+  }
+  .hero .ornament.tl{ top: 40px; left: 40px; }
+  .hero .ornament.br{ bottom: 40px; right: 40px; transform: rotate(180deg); }
+  .hero .ornament.ct{ bottom: 60px; left: 50%; transform: translateX(-50%) rotate(15deg); opacity: 0.04; }
+  .hero .label{
+    font-size: 12px; letter-spacing: 6px; text-transform: uppercase;
+    color: var(--g700); margin-bottom: 20px; opacity: 0.7;
+  }
+  .hero h1{
+    font-size: clamp(36px, 6vw, 64px); font-weight: 500;
+    color: var(--g950); letter-spacing: -1px; line-height: 1.2;
+    max-width: 700px;
+  }
+  .hero h1 em{ font-style: italic; color: var(--g700); }
+  .hero .date{
+    font-size: 15px; color: var(--g700); margin-top: 16px;
+    letter-spacing: 3px; opacity: 0.6;
+  }
+  .hero .scroll-hint{
+    position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+    font-size: 11px; letter-spacing: 4px; color: var(--g500); opacity: 0.5;
+    animation: float 2s ease-in-out infinite;
+  }
+  @keyframes float{ 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
+
+  /* -- stat band -- */
+  .stat-band{
+    background: var(--g50); padding: 60px 0;
+  }
+  .stat-grid{
+    display: grid; grid-template-columns: repeat(4,1fr); gap: 40px;
+    max-width: 800px; margin: 0 auto; padding: 0 28px;
+  }
+  .stat-grid .item{ text-align: center; }
+  .stat-grid .num{
+    font-size: 48px; font-weight: 500; color: var(--g900); line-height: 1;
+    font-family: 'Georgia', 'Noto Serif SC', serif;
+  }
+  .stat-grid .num.accent{ color: var(--g700); }
+  .stat-grid .lbl{
+    font-size: 12px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--g700); opacity: 0.5; margin-top: 6px;
+  }
+
+  /* -- story block -- */
+  .story{ text-align: center; padding: 100px 28px; }
+  .story .overline{
+    font-size: 11px; letter-spacing: 5px; text-transform: uppercase;
+    color: var(--g700); opacity: 0.5; margin-bottom: 16px;
+  }
+  .story h2{
+    font-size: 28px; font-weight: 500; color: var(--g950);
+    max-width: 600px; margin: 0 auto 20px; line-height: 1.5;
+  }
+  .story p{
+    max-width: 560px; margin: 0 auto; color: var(--g900); opacity: 0.7;
+    font-size: 15px; line-height: 2;
+  }
+  .story .accent{ color: var(--g700); font-weight: 600; }
+
+  /* -- divider -- */
+  .divider{
+    display: flex; justify-content: center; padding: 0 0 20px;
+  }
+  .divider svg{ width: 120px; height: auto; opacity: 0.25; }
+
+  /* -- rare list -- */
+  .rare-list{ padding: 60px 0; background: #fff; }
+  .rare-items{
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2px; max-width: 960px; margin: 0 auto; padding: 0 28px;
+  }
+  .rare-card{
+    padding: 36px 28px; background: var(--g50); text-align: center;
+    transition: background 0.3s;
+  }
+  .rare-card:hover{ background: var(--g100); }
+  .rare-card .rank{
+    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--g700); opacity: 0.5; margin-bottom: 8px;
+  }
+  .rare-card .bird{ font-size: 18px; font-weight: 600; color: var(--g950); }
+  .rare-card .latin{ font-size: 12px; font-style: italic; color: var(--g500); margin-top: 2px; }
+  .rare-card .tag{
+    display: inline-block; margin-top: 8px; padding: 3px 12px;
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    border: 1px solid var(--g200); color: var(--g700);
+  }
+
+  /* -- checklist table -- */
+  .checklist{ padding: 60px 0; background: #fff; }
+  .checklist .inner{ max-width: 900px; }
+  .checklist h2{
+    font-size: 20px; font-weight: 500; color: var(--g950);
+    margin-bottom: 24px; letter-spacing: 2px; text-align: center;
+  }
+  .checklist h2 span{ color: var(--g700); opacity: 0.4; font-size: 14px; }
+  table{ width: 100%; border-collapse: collapse; }
+  thead th{
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--g500); font-weight: 500; text-align: left;
+    padding: 10px 16px; border-bottom: 1px solid var(--g200);
+  }
+  tbody td{
+    padding: 8px 16px; border-bottom: 1px solid var(--g100);
+    font-size: 14px; color: var(--g950); vertical-align: top;
+  }
+  tbody tr:hover{ background: var(--g50); }
+  .latin{ font-size: 11px; font-style: italic; color: var(--g500); display: block; margin-top: 1px; }
+  .badge{
+    display: inline-block; font-size: 10px; letter-spacing: 2px;
+    text-transform: uppercase; padding: 2px 8px; border-radius: 2px;
+  }
+  .badge-rare{ background: #fff3e0; color: #c25100; font-weight: 600; }
+  .badge-uncommon{ background: var(--g100); color: var(--g700); font-weight: 600; }
+  .badge-common{ color: var(--g500); }
+  .badge-protected{ background: #fff3e0; color: #c25100; margin-left: 4px; font-weight: 600; }
+
+  /* -- footer -- */
+  footer{
+    text-align: center; padding: 60px 28px; background: var(--g50);
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--g500);
+  }
+  footer a{ color: var(--g700); text-decoration: none; }
+  footer .separator{ color: var(--g200); margin: 0 12px; }
+  footer .ornament{ margin-top: 20px; opacity: 0.3; }
+
+  @media(max-width:768px){
+    .stat-grid{ grid-template-columns: 1fr 1fr; gap: 24px; }
+    .rare-items{ grid-template-columns: 1fr; }
+    .hero h1{ font-size: 32px; }
+    section{ padding: 50px 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <svg class="ornament tl" width="180" height="200" viewBox="0 0 180 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M90 10 C60 40,20 80,30 130 C40 170,70 180,90 190" stroke="#182418" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <path d="M90 10 C120 50,95 80,110 110" stroke="#182418" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <ellipse cx="85" cy="50" rx="18" ry="28" stroke="#182418" stroke-width="1.2" fill="none" transform="rotate(-15,85,50)"/>
+    <ellipse cx="100" cy="65" rx="14" ry="22" stroke="#182418" stroke-width="1" fill="none" transform="rotate(10,100,65)"/>
+    <path d="M80 30 C75 20,85 15,95 20" stroke="#182418" stroke-width="0.8" fill="none"/>
+    <path d="M105 35 C115 28,118 35,112 42" stroke="#182418" stroke-width="0.8" fill="none"/>
+  </svg>
+  <svg class="ornament br" width="180" height="200" viewBox="0 0 180 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M90 10 C60 40,20 80,30 130 C40 170,70 180,90 190" stroke="#182418" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <path d="M90 10 C120 50,95 80,110 110" stroke="#182418" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <ellipse cx="85" cy="50" rx="18" ry="28" stroke="#182418" stroke-width="1.2" fill="none" transform="rotate(-15,85,50)"/>
+    <ellipse cx="100" cy="65" rx="14" ry="22" stroke="#182418" stroke-width="1" fill="none" transform="rotate(10,100,65)"/>
+  </svg>
+  <svg class="ornament ct" width="300" height="60" viewBox="0 0 300 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 30 C50 10,100 50,150 30 C200 10,250 50,300 30" stroke="#182418" stroke-width="1" fill="none"/>
+    <circle cx="120" cy="28" r="3" fill="#182418"/>
+    <circle cx="180" cy="28" r="2" fill="#182418"/>
+  </svg>
+
+  <div class="label">上海 · 鸟类观察记录</div>
+  <h1><em>上海夏日</em><br>野外观察笔记</h1>
+  <div class="date">2026 年 7 月 4 日 &middot; 星期六</div>
+  <div class="scroll-hint">&darr; 向下浏览</div>
+</section>
+
+<!-- ═══ STATS ═══ -->
+<section class="stat-band">
+  <div class="stat-grid">
+    <div class="item"><div class="num">5</div><div class="lbl">观察报告</div></div>
+    <div class="item"><div class="num accent">34</div><div class="lbl">鸟种</div></div>
+    <div class="item"><div class="num">57</div><div class="lbl">记录条数</div></div>
+    <div class="item"><div class="num">7</div><div class="lbl">目</div></div>
+  </div>
+</section>
+
+<!-- ═══ DIVIDER ═══ -->
+<div class="divider">
+  <svg viewBox="0 0 120 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 10 C20 2,40 18,60 10 C80 2,100 18,120 10" stroke="#5d895c" stroke-width="1" fill="none"/>
+    <circle cx="60" cy="10" r="2" fill="#5d895c"/>
+  </svg>
+</div>
+
+<!-- ═══ STORY ═══ -->
+<section class="story">
+  <div class="overline">今日观察笔记</div>
+  <h2>夏日清晨，<br>34 种鸟类在申城的天空与湿地间穿行</h2>
+  <p>
+    五份观鸟报告中，<span class="accent">珠颈斑鸠</span>、<span class="accent">白头鹎</span>与<span class="accent">鹊鸲</span>各被记录 4 次，
+    成为今日最常见的身影。值得注意的是，<span class="accent">小鸦鹃</span>
+    作为罕见的二级保护鸟类也被观察者记录在案。
+    从崇明湿地到市区公园，57 条记录勾勒出申城夏日的鸟类图景。
+  </p>
+</section>
+
+<!-- ═══ RARE ═══ -->
+<section class="rare-list">
+  <div class="inner">
+    <div style="text-align:center;margin-bottom:32px">
+      <div style="font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--g700);opacity:0.5;margin-bottom:10px">值得关注的鸟种</div>
+      <h2 style="font-size:22px;font-weight:500;color:var(--g950)">值得关注的鸟种</h2>
+    </div>
+  </div>
+  <div class="rare-items">
+    <div class="rare-card">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:12px;opacity:0.3">
+        <path d="M6 26 C6 18,12 10,16 8 C20 10,26 18,26 26" stroke="#182418" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <line x1="16" y1="8" x2="16" y2="2" stroke="#182418" stroke-width="1.2" stroke-linecap="round"/>
+        <circle cx="12" cy="18" r="1.5" fill="#182418"/><circle cx="20" cy="20" r="1.5" fill="#182418"/><circle cx="16" cy="16" r="1.5" fill="#182418"/>
+      </svg>
+      <div class="rank">1 &middot; 罕见</div>
+      <div class="bird">小鸦鹃</div>
+      <div class="latin">Lesser Coucal &middot; Centropus bengalensis</div>
+      <div class="tag">国家二级保护</div>
+    </div>
+    <div class="rare-card">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:12px;opacity:0.3">
+        <path d="M4 16 C8 8,16 4,16 4 C16 4,24 8,28 16 C24 24,16 26,16 26 C16 26,8 24,4 16Z" stroke="#182418" stroke-width="1.5" fill="none"/>
+        <path d="M16 4 C18 10,22 12,22 12" stroke="#182418" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <path d="M16 4 C14 10,10 12,10 12" stroke="#182418" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <circle cx="16" cy="16" r="1.5" fill="#182418"/>
+      </svg>
+      <div class="rank">2 &middot; 不常见</div>
+      <div class="bird">黑翅鸢</div>
+      <div class="latin">Black-winged Kite &middot; Elanus caeruleus</div>
+      <div class="tag">国家二级保护</div>
+    </div>
+    <div class="rare-card">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:12px;opacity:0.3">
+        <path d="M16 4 L24 12 L28 20 C28 24,24 28,16 28 C8 28,4 24,4 20 L8 12 Z" stroke="#182418" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+        <circle cx="16" cy="16" r="1.5" fill="#182418"/>
+        <path d="M12 20 L16 14 L20 20" stroke="#182418" stroke-width="1" fill="none" stroke-linejoin="round"/>
+      </svg>
+      <div class="rank">3 &middot; 不常见</div>
+      <div class="bird">红隼</div>
+      <div class="latin">Common Kestrel &middot; Falco tinnunculus</div>
+      <div class="tag">国家二级保护</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CHECKLIST ═══ -->
+<section class="checklist">
+  <div class="inner">
+    <h2>完整鸟种名录 <span style="color:var(--g500);font-weight:400">34 种</span></h2>
+    <table>
+      <thead><tr><th>#</th><th>鸟种</th><th>目</th><th>科</th><th style="text-align:right">次数</th><th>状态</th></tr></thead>
+      <tbody id="bird-table"></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div>中国观鸟记录中心 <span class="separator">&middot;</span> <a href="https://www.birdreport.cn" target="_blank" style="color:var(--g700);text-decoration:none">birdreport.cn</a></div>
+  <div class="ornament">
+    <svg width="60" height="20" viewBox="0 0 60 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 10 C10 4,20 16,30 10 C40 4,50 16,60 10" stroke="#86ac85" stroke-width="0.8" fill="none"/>
+    </svg>
+  </div>
+</footer>
+
+<script>
+(function(){
+var B=[{n:"Spotted Dove",cn:"珠颈斑鸠",l:"Spilopelia chinensis",o:"鸽形目",f:"鸠鸽科",c:4,s:"common"},{n:"Light-vented Bulbul",cn:"白头鹎",l:"Pycnonotus sinensis",o:"雀形目",f:"鹎科",c:4,s:"common"},{n:"Oriental Magpie-Robin",cn:"鹊鸲",l:"Copsychus saularis",o:"雀形目",f:"鹟科",c:4,s:"uncommon"},{n:"Chinese Blackbird",cn:"乌鸫",l:"Turdus mandarinus",o:"雀形目",f:"鸫科",c:3,s:"common"},{n:"Little Grebe",cn:"小鸊鷉",l:"Tachybaptus ruficollis",o:"鸊鷉目",f:"鸊鷉科",c:2,s:"common"},{n:"Common Moorhen",cn:"黑水鸡",l:"Gallinula chloropus",o:"鹤形目",f:"秧鸡科",c:2,s:"common"},{n:"Little Egret",cn:"白鹭",l:"Egretta garzetta",o:"鹈形目",f:"鹭科",c:2,s:"common"},{n:"Common Kingfisher",cn:"普通翠鸟",l:"Alcedo atthis",o:"佛法僧目",f:"翠鸟科",c:2,s:"common"},{n:"Long-tailed Shrike",cn:"棕背伯劳",l:"Lanius schach",o:"雀形目",f:"伯劳科",c:2,s:"common"},{n:"Plain Prinia",cn:"纯色山鹪莺",l:"Prinia inornata",o:"雀形目",f:"扇尾莺科",c:2,s:"uncommon"},{n:"Lesser Coucal",cn:"小鸦鹃",l:"Centropus bengalensis",o:"鹃形目",f:"杜鹃科",c:1,s:"rare",p:2},{n:"Indian Cuckoo",cn:"四声杜鹃",l:"Cuculus micropterus",o:"鹃形目",f:"杜鹃科",c:1,s:"uncommon"},{n:"Common Cuckoo",cn:"大杜鹃",l:"Cuculus canorus",o:"鹃形目",f:"杜鹃科",c:1,s:"uncommon"},{n:"White-breasted Waterhen",cn:"白胸苦恶鸟",l:"Amaurornis phoenicurus",o:"鹤形目",f:"秧鸡科",c:1,s:"uncommon"},{n:"Chinese Pond Heron",cn:"池鹭",l:"Ardeola bacchus",o:"鹈形目",f:"鹭科",c:1,s:"uncommon"},{n:"Grey Heron",cn:"苍鹭",l:"Ardea cinerea",o:"鹈形目",f:"鹭科",c:1,s:"common"},{n:"Great Egret",cn:"大白鹭",l:"Ardea alba",o:"鹈形目",f:"鹭科",c:1,s:"uncommon"},{n:"Black-winged Stilt",cn:"黑翅长脚鹬",l:"Himantopus himantopus",o:"鸻形目",f:"反嘴鹬科",c:1,s:"uncommon"},{n:"Black-winged Kite",cn:"黑翅鸢",l:"Elanus caeruleus",o:"鹰形目",f:"鹰科",c:1,s:"uncommon",p:2},{n:"Common Kestrel",cn:"红隼",l:"Falco tinnunculus",o:"隼形目",f:"隼科",c:1,s:"uncommon",p:2},{n:"Black Drongo",cn:"黑卷尾",l:"Dicrurus macrocercus",o:"雀形目",f:"卷尾科",c:1,s:"uncommon"},{n:"Barn Swallow",cn:"家燕",l:"Hirundo rustica",o:"雀形目",f:"燕科",c:1,s:"common"},{n:"Red-rumped Swallow",cn:"金腰燕",l:"Cecropis daurica",o:"雀形目",f:"燕科",c:1,s:"uncommon"},{n:"Swinhoe's White-eye",cn:"暗绿绣眼鸟",l:"Zosterops simplex",o:"雀形目",f:"绣眼鸟科",c:1,s:"uncommon"},{n:"White-browed Laughingthrush",cn:"白颊噪鹛",l:"Pterorhinus sannio",o:"雀形目",f:"噪鹛科",c:1,s:"uncommon"},{n:"Crested Myna",cn:"八哥",l:"Acridotheres cristatellus",o:"雀形目",f:"椋鸟科",c:1,s:"common"},{n:"Red-billed Starling",cn:"丝光椋鸟",l:"Spodiopsar sericeus",o:"雀形目",f:"椋鸟科",c:1,s:"uncommon"},{n:"White-cheeked Starling",cn:"灰椋鸟",l:"Spodiopsar cineraceus",o:"雀形目",f:"椋鸟科",c:1,s:"uncommon"},{n:"Black-collared Starling",cn:"黑领椋鸟",l:"Gracupica nigricollis",o:"雀形目",f:"椋鸟科",c:1,s:"uncommon"},{n:"Eurasian Tree Sparrow",cn:"麻雀",l:"Passer montanus",o:"雀形目",f:"雀科",c:1,s:"common"},{n:"White Wagtail",cn:"白鹡鸰",l:"Motacilla alba",o:"雀形目",f:"鹡鸰科",c:1,s:"common"},{n:"Chinese Grosbeak",cn:"黑尾蜡嘴雀",l:"Eophona migratoria",o:"雀形目",f:"燕雀科",c:1,s:"uncommon"},{n:"Oriental Greenfinch",cn:"金翅雀",l:"Chloris sinica",o:"雀形目",f:"燕雀科",c:1,s:"uncommon"},{n:"Common Pheasant",cn:"环颈雉",l:"Phasianus colchicus",o:"鸡形目",f:"雉科",c:1,s:"common"}];
+
+B.sort(function(a,b){return b.c-a.c});
+document.getElementById('bird-table').innerHTML=B.map(function(b,i){
+  var st='<span class="badge badge-common">常见</span>';
+  if(b.s==='rare') st='<span class="badge badge-rare">罕见</span>';
+  else if(b.s==='uncommon') st='<span class="badge badge-uncommon">不常见</span>';
+  if(b.p) st+=' <span class="badge badge-protected">二级</span>';
+  return '<tr><td style="color:var(--g500)">'+(i+1)+'</td><td><b>'+b.cn+'</b><span class="latin">'+b.n+' &middot; '+b.l+'</span></td><td>'+b.o+'</td><td>'+b.f+'</td><td style="text-align:right;font-weight:600;color:var(--g700)">'+b.c+'</td><td>'+st+'</td></tr>';
+}).join('');
+})();
+</script>
+</body>
+</html>
