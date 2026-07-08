@@ -112,6 +112,14 @@ for _latin, _entry in _no_rarity.items():
 # Load today's query data
 data = json.load(open('/tmp/bird_daily.json'))
 species = data['species']
+
+# Load eBird life list for target marking
+ebird_seen = set()
+try:
+    ebird_seen = set(json.load(open('/tmp/ebird_seen.json')))
+except:
+    pass
+
 # Override season/term/date/colors from data file (not system time)
 season = data.get('season', season)
 term = data.get('term', term)
@@ -205,7 +213,8 @@ for i, s in enumerate(species):
     count_tc = 'color:#bbb' if gray else 'color:var(--g700)'
     res_code = s.get("residency_code","") if not gray else "—"
     st_display = st if not gray else '<span style="color:#bbb;font-size:10px">未收录</span>'
-    table_rows += f'<tr><td style="{tc}">{i+1}</td><td style="{tr_tc}"><b>{s["n"]}</b><span class="latin" style="{tc}">{s["l"]}</span></td><td style="{tr_tc}">{s["o"]}</td><td style="{tr_tc}">{s["f"]}</td><td style="text-align:right;font-weight:600;{count_tc};padding-right:32px">{s["c"]}</td><td style="font-size:12px;padding-left:32px;{tc}">{res_code}</td><td style="{tr_tc}">{st_display}</td></tr>\n'
+    target_mark = '' if s["n"] in ebird_seen or gray else '<span style="color:#e50022;font-size:11px;margin-left:2px" title="eBird未记录">&#x25C9;</span>'
+    table_rows += f'<tr><td style="{tc}">{i+1}</td><td style="{tr_tc}"><b>{s["n"]}{target_mark}</b><span class="latin" style="{tc}">{s["l"]}</span></td><td style="{tr_tc}">{s["o"]}</td><td style="{tr_tc}">{s["f"]}</td><td style="text-align:right;font-weight:600;{count_tc};padding-right:32px">{s["c"]}</td><td style="font-size:12px;padding-left:32px;{tc}">{res_code}</td><td style="{tr_tc}">{st_display}</td></tr>\n'
 
 story_text = stories[season].replace('{reports}', str(data['reports'])).replace('{species}', str(len(species)))
 
@@ -215,7 +224,7 @@ html = f'''<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta n
 <div class="divider"><svg viewBox="0 0 120 20" fill="none"><path d="M0 10 C20 2,40 18,60 10 C80 2,100 18,120 10" stroke="{ds}" stroke-width="1" fill="none"/><circle cx="60" cy="10" r="2" fill="{ds}"/></svg></div>
 <section class="story"><div class="overline">今日观察笔记</div><h2>{term}申城，<br>{len(species)} 种鸟类共同栖息</h2><p>{story_text}</p></section>
 <section class="rare-list"><div style="text-align:center;margin-bottom:32px;padding:0 28px"><div style="font-size:11px;letter-spacing:5px;color:var(--g700);opacity:0.5;margin-bottom:10px">值得关注的鸟种</div><h2 style="font-size:22px;font-weight:500;color:var(--g950)">值得关注的鸟种</h2></div><div class="rare-items">{rare_html}</div></section>
-<section class="checklist"><div class="inner"><h2>完整鸟种名录 <span>{len(species)} 种</span></h2><table><thead><tr><th>#</th><th>鸟种</th><th>目</th><th>科</th><th style="text-align:right;padding-right:32px">次数</th><th style="padding-left:32px">居留型</th><th>状态</th></tr></thead><tbody>{table_rows}</tbody></table><p style="font-size:11px;color:var(--g500);margin-top:10px;text-align:center;line-height:1.8">居留型：R (留鸟)；S (夏候鸟)；W (冬候鸟)；Mp (过境旅鸟)；Mv (游荡旅鸟)；V (迷鸟)</p></div></section>
+<section class="checklist"><div class="inner"><h2>完整鸟种名录 <span>{len(species)} 种</span></h2><table><thead><tr><th>#</th><th>鸟种</th><th>目</th><th>科</th><th style="text-align:right;padding-right:32px">次数</th><th style="padding-left:32px">居留型</th><th>状态</th></tr></thead><tbody>{table_rows}</tbody></table><p style="font-size:11px;color:var(--g500);margin-top:10px;text-align:center;line-height:1.8">居留型：R (留鸟)；S (夏候鸟)；W (冬候鸟)；Mp (过境旅鸟)；Mv (游荡旅鸟)；V (迷鸟) &#x25C9; eBird未记录</p></div></section>
 <footer class="footer"><div>中国观鸟记录中心 &middot; <a href="https://www.birdreport.cn" target="_blank">birdreport.cn</a></div><div class="ornament"><svg width="60" height="20" fill="none"><path d="M0 10 C10 4,20 16,30 10 C40 4,50 16,60 10" stroke="{fs}" stroke-width="0.8" fill="none"/></svg></div></footer>
 </body></html>'''
 
