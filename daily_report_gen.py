@@ -225,7 +225,17 @@ for i, s in enumerate(species):
                 return ln[:-len(suf)]
         return ln
     ebird_norm = {norm(x) for x in ebird_seen}
+    ebird_epithets = set()
+    for x in ebird_seen:
+        parts = x.split()
+        if len(parts) >= 2:
+            ebird_epithets.add(norm(parts[1]))
     in_ebird = norm(s["l"]) in ebird_norm or norm(s.get('orig_latin','')) in ebird_norm
+    # Epithet-level fallback (handle genus reclassifications)
+    if not in_ebird:
+        parts = s['l'].split()
+        if len(parts) >= 2 and norm(parts[1]) in ebird_epithets:
+            in_ebird = True
     target_mark = '' if in_ebird or gray else '<span style="color:#e50022;font-size:11px;margin-left:2px" title="eBird未记录">&#x25C9;</span>'
     table_rows += f'<tr><td style="{tc}">{i+1}</td><td style="{tr_tc}"><b>{s["n"]}{target_mark}</b><span class="latin" style="{tc}">{s["l"]}</span></td><td style="{tr_tc}">{s["o"]}</td><td style="{tr_tc}">{s["f"]}</td><td style="text-align:right;font-weight:600;{count_tc};padding-right:32px">{s["c"]}</td><td style="font-size:12px;padding-left:32px;{tc}">{res_code}</td><td style="{tr_tc}">{st_display}</td></tr>\n'
 
