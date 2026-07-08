@@ -157,6 +157,7 @@ for s in species:
     s['residency_code'] = info.get('residency', '')
     s['order_idx'] = info.get('order', 99999)
     # Override Latin name with checklist version if matched
+    orig_latin = s['l']
     if info.get('latin') and info['latin'] != s['l']:
         s['l'] = info['latin']
     rc = s.get('residency_code','')
@@ -216,7 +217,8 @@ for i, s in enumerate(species):
     count_tc = 'color:#bbb' if gray else 'color:var(--g700)'
     res_code = s.get("residency_code","") if not gray else "—"
     st_display = st if not gray else '<span style="color:#bbb;font-size:10px">未收录</span>'
-    target_mark = '' if s["l"] in ebird_seen or gray else '<span style="color:#e50022;font-size:11px;margin-left:2px" title="eBird未记录">&#x25C9;</span>'
+    in_ebird = s["l"] in ebird_seen or orig_latin in ebird_seen
+    target_mark = '' if in_ebird or gray else '<span style="color:#e50022;font-size:11px;margin-left:2px" title="eBird未记录">&#x25C9;</span>'
     table_rows += f'<tr><td style="{tc}">{i+1}</td><td style="{tr_tc}"><b>{s["n"]}{target_mark}</b><span class="latin" style="{tc}">{s["l"]}</span></td><td style="{tr_tc}">{s["o"]}</td><td style="{tr_tc}">{s["f"]}</td><td style="text-align:right;font-weight:600;{count_tc};padding-right:32px">{s["c"]}</td><td style="font-size:12px;padding-left:32px;{tc}">{res_code}</td><td style="{tr_tc}">{st_display}</td></tr>\n'
 
 story_text = stories[season].replace('{reports}', str(data['reports'])).replace('{species}', str(len(species)))
