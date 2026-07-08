@@ -101,8 +101,8 @@ _no_rarity = {
     "Sterna hirundo": {"r": None, "p": None, "residency": "↓", "order": 159},
     "Anas crecca": {"r": None, "p": None, "residency": "↓", "order": 38},
     "Pluvialis apricaria": {"r": None, "p": None, "residency": "V", "order": 87},
-    "Ixobrychus flavicollis": {"r": "r", "p": None, "residency": "S", "order": 204},  # = Botaurus flavicollis (黑鳽)
-    "Ixobrychus sinensis": {"r": "r", "p": None, "residency": "S", "order": 207},  # = Botaurus sinensis (黄苇鳽)
+    "Ixobrychus flavicollis": {"r": "r", "p": None, "residency": "S", "order": 204, "latin": "Botaurus flavicollis"},  # = Botaurus flavicollis (黑鳽)
+    "Ixobrychus sinensis": {"r": "r", "p": None, "residency": "S", "order": 207, "latin": "Botaurus sinensis"},  # = Botaurus sinensis (黄苇鳽)
     "Saxicola stejnegeri": {"r": None, "p": None, "residency": "", "order": 99998},  # subspecies of Saxicola maurus
 }
 for _latin, _entry in _no_rarity.items():
