@@ -113,10 +113,13 @@ for _latin, _entry in _no_rarity.items():
 data = json.load(open('/tmp/bird_daily.json'))
 species = data['species']
 
-# Load eBird life list for target marking
-ebird_seen = set()
+# Load eBird life list for target marking (Chinese + Latin)
+ebird_cn = set()
+ebird_latin = set()
 try:
-    ebird_seen = set(json.load(open('/tmp/ebird_seen.json')))
+    ebird_data = json.load(open('/tmp/ebird_seen.json'))
+    ebird_cn = set(ebird_data.get('cn', []))
+    ebird_latin = set(ebird_data.get('latin', []))
 except:
     pass
 
@@ -218,24 +221,17 @@ for i, s in enumerate(species):
     count_tc = 'color:#bbb' if gray else 'color:var(--g700)'
     res_code = s.get("residency_code","") if not gray else "—"
     st_display = st if not gray else '<span style="color:#bbb;font-size:10px">未收录</span>'
-    # Normalize Latin gender endings for comparison (-us/-a/-um/-is)
-    def norm(ln):
-        for suf in ['us','a','um','is']:
-            if ln.endswith(suf) and len(ln)-len(suf) >= 3:
-                return ln[:-len(suf)]
-        return ln
-    ebird_norm = {norm(x) for x in ebird_seen}
-    ebird_epithets = set()
-    for x in ebird_seen:
-        parts = x.split()
-        if len(parts) >= 2:
-            ebird_epithets.add(norm(parts[1]))
-    in_ebird = norm(s["l"]) in ebird_norm or norm(s.get('orig_latin','')) in ebird_norm
-    # Epithet-level fallback (handle genus reclassifications)
+    # Target marker: check Chinese name first, then Latin with normalization
+    in_ebird = s["n"] in ebird_cn
     if not in_ebird:
-        parts = s['l'].split()
-        if len(parts) >= 2 and norm(parts[1]) in ebird_epithets:
-            in_ebird = True
+        def norm(ln):
+            for suf in ['us','a','um','is']:
+                if ln.endswith(suf) and len(ln)-len(suf) >= 3:
+                    return ln[:-len(suf)]
+            return ln
+        in_ebird = norm(s["l"]) in {norm(x) for x in ebird_latin}
+        if not in_ebird and s.get('orig_latin'):
+            in_ebird = norm(s['orig_latin']) in {norm(x) for x in ebird_latin}
     target_mark = '' if in_ebird or gray else '<span style="color:#e50022;font-size:11px;margin-left:2px" title="eBird未记录">&#x25C9;</span>'
     table_rows += f'<tr><td style="{tc}">{i+1}</td><td style="{tr_tc}"><b>{s["n"]}{target_mark}</b><span class="latin" style="{tc}">{s["l"]}</span></td><td style="{tr_tc}">{s["o"]}</td><td style="{tr_tc}">{s["f"]}</td><td style="text-align:right;font-weight:600;{count_tc};padding-right:32px">{s["c"]}</td><td style="font-size:12px;padding-left:32px;{tc}">{res_code}</td><td style="{tr_tc}">{st_display}</td></tr>\n'
 
