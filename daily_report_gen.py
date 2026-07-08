@@ -120,6 +120,8 @@ try:
     ebird_data = json.load(open('/tmp/ebird_seen.json'))
     ebird_cn = set(ebird_data.get('cn', []))
     ebird_latin = set(ebird_data.get('latin', []))
+    # Manual overrides for name mismatches
+    ebird_cn.add('黄斑苇鳽')  # eBird uses 黄苇鳽, birdreport uses 黄斑苇鳽
 except:
     pass
 
