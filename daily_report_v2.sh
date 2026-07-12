@@ -59,6 +59,17 @@ main().catch(e=>console.error(e));
 
 
 # Step 2: Generate HTML + PNG + Send email
+/usr/bin/python3 -c "
+import csv,json,os
+csv_path = os.path.expanduser('~/Desktop/Birding/ebird_CN-31_life_list.csv')
+seen_cn, seen_latin = set(), set()
+with open(csv_path, 'r') as f:
+    for row in csv.DictReader(f):
+        cn=row.get('Common Name','').strip(); sn=row.get('Scientific Name','').strip()
+        if cn: seen_cn.add(cn)
+        if sn: seen_latin.add(sn)
+json.dump({'cn':list(seen_cn),'latin':list(seen_latin)}, open(os.path.expanduser('~/Library/ebird_seen.json'),'w'), ensure_ascii=False)
+"
 /usr/bin/python3 /Users/sheldon/Library/gen_daily_report.py
 echo "Done"
 # Send email
