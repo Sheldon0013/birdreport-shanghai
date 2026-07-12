@@ -123,6 +123,10 @@ try:
     # Manual overrides for name mismatches
     ebird_cn.add('黄斑苇鳽')  # eBird uses 黄苇鳽, birdreport uses 黄斑苇鳽
     ebird_cn.add('黑苇鳽')    # eBird uses 黑鳽, birdreport uses 黑苇鳽
+    ebird_cn.add('乌燕鸥')    # eBird uses 乌燕鸥 (same name but may not match)
+    ebird_cn.add('褐翅燕鸥')
+    ebird_cn.add('大凤头燕鸥')
+    ebird_cn.add('粉红燕鸥')
 except:
     pass
 
