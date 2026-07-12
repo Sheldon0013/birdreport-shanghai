@@ -117,11 +117,12 @@ species = data['species']
 ebird_cn = set()
 ebird_latin = set()
 try:
-    ebird_data = json.load(open('/tmp/ebird_seen.json'))
+    ebird_data = json.load(open(os.path.expanduser('~/Library/ebird_seen.json')))
     ebird_cn = set(ebird_data.get('cn', []))
     ebird_latin = set(ebird_data.get('latin', []))
     # Manual overrides for name mismatches
     ebird_cn.add('黄斑苇鳽')  # eBird uses 黄苇鳽, birdreport uses 黄斑苇鳽
+    ebird_cn.add('黑苇鳽')    # eBird uses 黑鳽, birdreport uses 黑苇鳽
 except:
     pass
 
